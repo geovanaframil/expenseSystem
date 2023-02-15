@@ -1,0 +1,29 @@
+.container {
+    height: 34px;
+    background-color: #f3f6f9;
+    line-height: 34px;
+    display: flex;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.crumb a {
+    color: var(--green-100);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.crumb:after {
+    content: '/';
+    display: inline-block;
+    margin: 0 4px;
+    color: var(--green-100);
+}
+
+.crumb:last-child:after {
+    display: none;
+}
