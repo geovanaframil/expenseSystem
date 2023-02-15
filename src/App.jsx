@@ -1,5 +1,14 @@
+import Breadcrumb from './components/Breadcrumb';
+import Header from './components/Header';
+import { Router } from './router';
+
 function App() {
-    return <div className="App">Meu app</div>;
+    return (
+        <div className="App">
+            <Header />
+            <Router />
+        </div>
+    );
 }
 
 export default App;
