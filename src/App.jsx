@@ -1,6 +1,7 @@
 import Breadcrumb from './components/Breadcrumb';
 import Header from './components/Header';
 import { Router } from './router';
+import Summary from './components/Summary';
 
 function App() {
     return (
@@ -8,6 +9,7 @@ function App() {
             <Header />
             <Breadcrumb/>
             <Router />
+            <Summary />
         </div>
     );
 }
