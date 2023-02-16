@@ -9,7 +9,7 @@ function Summary() {
         <hr className={styles.green}></hr>
       </div>
       <div className={styles.totalExpenses}>
-        <p>TOTAL PAGO</p>
+        <p>TOTAL DESPESAS</p>
         <p>Teste</p>
         <hr className={styles.red}></hr>
       </div>
