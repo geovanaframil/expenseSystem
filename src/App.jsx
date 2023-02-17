@@ -2,6 +2,7 @@ import Breadcrumb from './components/Breadcrumb';
 import Header from './components/Header';
 import { Router } from './router';
 import Summary from './components/Summary';
+import Search from './components/Filters/Search';
 
 function App() {
     return (
@@ -9,7 +10,6 @@ function App() {
             <Header />
             <Breadcrumb/>
             <Router />
-            <Summary />
         </div>
     );
 }
