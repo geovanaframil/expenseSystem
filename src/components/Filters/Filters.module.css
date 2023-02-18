@@ -1,5 +1,6 @@
 .search {
   margin-top: 94px;
+  margin-left: 50px;
 }
 
 label {
@@ -10,6 +11,7 @@ label {
 
 .inputSearch {
   display: block;
+  outline: none;
   border-top-style: none;
   border-left-style: none;
   border-right-style: none;

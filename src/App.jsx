@@ -10,6 +10,7 @@ function App() {
             <Header />
             <Breadcrumb/>
             <Router />
+            <Search />
         </div>
     );
 }
