@@ -14,7 +14,7 @@ function Search() {
         id: "user_1abc2",
         name: "John",
         lastName: "Doe",
-        email: "johndoe@example.com",
+        email: "fredndoe@example.com",
       },
       _category: {
         id: "cat1",
@@ -47,8 +47,10 @@ function Search() {
     setFilterValue(event.target.value);
   };
 
-  const filteredExpenses = expenses.filter((expense) =>
-    expense.id.toString().includes(filterValue)
+  const filteredExpenses = expenses.filter(
+    (expense) =>
+      expense.id.toString().includes(filterValue) ||
+      expense._user.email.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   return (
@@ -63,7 +65,7 @@ function Search() {
       <ul>
         {filteredExpenses.map((expense) => (
           <li key={expense.id}>
-            {expense.id} - {expense.name} - {expense.amount}
+            {expense.id} - {expense.name} - {expense.amount} - {expense._user.email}
           </li>
         ))}
       </ul>
