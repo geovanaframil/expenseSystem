@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./Filters.module.css";
 
 function Search() {
-  const [expenses, setExpenses] = useState([
+  const [expenses] = useState([
     {
       id: "exp1",
       name: "Despesa 1",
