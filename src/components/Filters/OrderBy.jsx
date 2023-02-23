@@ -15,4 +15,4 @@ function OrderBy(a, b) {
   );
 }
 
-export default OrderBy
+export default OrderBy;

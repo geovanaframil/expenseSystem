@@ -12,7 +12,6 @@ function App() {
             <Breadcrumb/>
             <Router />
             <Search />
-            <OrderBy />
         </div>
     );
 }

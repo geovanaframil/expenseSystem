@@ -1,5 +1,7 @@
 import { useState } from "react";
+import FilterBy from "./FilterBy";
 import styles from "./Filters.module.css";
+import OrderBy from "./OrderBy";
 
 function Search() {
   const [expenses] = useState([
@@ -54,21 +56,26 @@ function Search() {
   );
 
   return (
-    <div className={styles.search}>
-      <label>Buscar</label>
-      <input
-        className={styles.inputSearch}
-        type="text"
-        onChange={handleInputChange}
-        value={filterValue}
-      />
-      <ul>
-        {filteredExpenses.map((expense) => (
-          <li key={expense.id}>
-            {expense.id} - {expense.name} - {expense.amount} - {expense._user.email}
-          </li>
-        ))}
-      </ul>
+    <div className={styles.filters}>
+      <div className={styles.search}>
+        <label>Buscar</label>
+        <input
+          className={styles.inputSearch}
+          type="text"
+          onChange={handleInputChange}
+          value={filterValue}
+        />
+        <ul>
+          {filteredExpenses.map((expense) => (
+            <li key={expense.id}>
+              {expense.id} - {expense.name} - {expense.amount} -{" "}
+              {expense._user.email}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <OrderBy />
+      <FilterBy />
     </div>
   );
 }
