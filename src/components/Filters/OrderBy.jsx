@@ -9,7 +9,6 @@ function OrderBy() {
   useEffect(() => {
     expensesAllUsers().then((data) => {
       let sortedUsers = [...data];
-      console.log(sortedUsers)
 
       switch (order) {
         case "user":
