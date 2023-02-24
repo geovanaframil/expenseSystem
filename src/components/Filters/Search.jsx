@@ -1,58 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllUsers } from "../Services/allUsers.service";
 import FilterBy from "./FilterBy";
 import styles from "./Filters.module.css";
 import OrderBy from "./OrderBy";
 
 function Search() {
-  const [expenses] = useState([
-    {
-      id: "exp1",
-      name: "Despesa 1",
-      categoryID: "cat1",
-      userID: "user_1abc2",
-      amount: 1000,
-      status: "PENDENTE",
-      _user: {
-        id: "user_1abc2",
-        name: "John",
-        lastName: "Doe",
-        email: "fredndoe@example.com",
-      },
-      _category: {
-        id: "cat1",
-        name: "Alimentação",
-      },
-    },
-    {
-      id: "exp2",
-      name: "Despesa 2",
-      categoryID: "cat2",
-      userID: "user_1abc2",
-      amount: 2000,
-      status: "PAGO",
-      _user: {
-        id: "user_1abc2",
-        name: "John",
-        lastName: "Doe",
-        email: "johndoe@example.com",
-      },
-      _category: {
-        id: "cat2",
-        name: "Transporte",
-      },
-    },
-  ]);
-
+  const [search, setSearch] = useState([]);
   const [filterValue, setFilterValue] = useState("");
+
+  useEffect(() => {
+    getAllUsers().then((response) => {
+      const user = [...response];
+      setSearch(user);
+    });
+  });
 
   const handleInputChange = (event) => {
     setFilterValue(event.target.value);
   };
 
-  const filteredExpenses = expenses.filter(
+  const filteredExpenses = search.filter(
     (expense) =>
       expense.id.toString().includes(filterValue) ||
-      expense._user.email.toLowerCase().includes(filterValue.toLowerCase())
+      expense.email.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   return (
@@ -68,8 +38,7 @@ function Search() {
         <ul>
           {filteredExpenses.map((expense) => (
             <li key={expense.id}>
-              {expense.id} - {expense.name} - {expense.amount} -{" "}
-              {expense._user.email}
+              {expense.id} - {expense.name} - {expense.email}
             </li>
           ))}
         </ul>
