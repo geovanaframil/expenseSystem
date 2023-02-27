@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
 import FilterBy from '../../components/Filters/FilterBy';
 import OrderBy from '../../components/Filters/OrderBy';
 import Search from '../../components/Filters/Search';
@@ -7,7 +8,7 @@ import Summary from '../../components/Summary';
 import Table from '../../components/Table';
 import { expensesAllUsers } from '../../Services/expenses.service';
 import { formatPrice } from '../../utils/formatPrice';
-import styles from './Expenses.module.css'
+import styles from './Expenses.module.css';
 
 export default function Expenses() {
     const navigate = useNavigate();
@@ -58,18 +59,38 @@ export default function Expenses() {
         }
     ];
 
+    const configButton = {
+        name: 'ADICIONAR DESPESA',
+        style: {
+            color: 'white',
+            backgroundColor: '#2196F3'
+        },
+        onClick: () => {
+            console.log('teste')
+        }
+    };
+
     return (
-        <div>
+        <div className={`${styles.containerExpenses} container`}>
             <Summary data={expensesFiltered} />
-            <div className={styles.container}>
+            <div className={styles.containerFilters}>
                 <Search
                     data={expenses}
                     setExpensesFiltered={setExpensesFiltered}
                 />
-                <OrderBy data={expenses} setExpensesFiltered={setExpensesFiltered} />
-                <FilterBy data={expenses} setExpensesFiltered={setExpensesFiltered} />
+                <OrderBy
+                    data={expenses}
+                    setExpensesFiltered={setExpensesFiltered}
+                />
+                <FilterBy
+                    data={expenses}
+                    setExpensesFiltered={setExpensesFiltered}
+                />
             </div>
             <Table config={config} data={expensesReduce} />
+            <div className={styles.wrapperButton}>
+                <Button config={configButton} />
+            </div>
         </div>
     );
 }
