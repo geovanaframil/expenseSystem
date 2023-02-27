@@ -1,0 +1,19 @@
+.button {
+    padding: 8px 22px;
+    font-size: 15px;
+    line-height: 26px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    margin-top: 24px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.46px;
+    transition: opacity 0.3s;
+}
+
+.button:hover {
+    opacity: 0.9;
+}

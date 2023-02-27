@@ -1,0 +1,16 @@
+.containerExpenses {
+    padding-bottom: 200px;
+}
+
+.containerFilters {
+    display: flex;
+    justify-content: center;
+    margin-top: 94px;
+    gap: 30px;
+}
+
+.wrapperButton {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: end;
+}
