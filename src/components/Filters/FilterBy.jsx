@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react';
-import { expensesAllUsers } from '../../Services/expenses.service';
 import styles from './Filters.module.css';
 
-function FilterBy() {
-    const [data, setData] = useState([]);
+function FilterBy({data, setExpensesFiltered}) {
     const [selectedStatus, setSelectedStatus] = useState('');
 
-    // useEffect(() => {
-    //     expensesAllUsers().then(response => {
-    //         let users = [...response];
-    //         console.log(users);
-    //         setData(users);
-    //     });
-    // }, []);
+    useEffect(() => {
+            let dataCopy = [...data];
+   
+            switch (selectedStatus) {
+                case 'PAGO':
+                case 'PENDENTE':
+                    dataCopy = dataCopy.filter(item => item.status === selectedStatus)
+                    break;
+                default:
+                    setExpensesFiltered(data);
+            }
 
-    const filteredData = data.filter(
-        item => selectedStatus === '' || item.status === selectedStatus
-    );
+            setExpensesFiltered(dataCopy);
+       
+    }, [selectedStatus]);
 
     const handleSelectChange = e => {
         setSelectedStatus(e.target.value);
@@ -30,12 +32,6 @@ function FilterBy() {
                 <option value="PAGO">Pago</option>
                 <option value="PENDENTE">Pendente</option>
             </select>
-            {/* {filteredData.map(item => (
-                <div key={item.id}>
-                    <p>{item.id}</p>
-                    <p>{item.status}</p>
-                </div>
-            ))} */}
         </div>
     );
 }
