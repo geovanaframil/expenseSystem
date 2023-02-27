@@ -1,52 +1,44 @@
-import { useEffect, useState } from "react";
-import { getAllUsers } from "../Services/allUsers.service";
-import FilterBy from "./FilterBy";
-import styles from "./Filters.module.css";
-import OrderBy from "./OrderBy";
+import { useEffect, useState } from 'react';
+import FilterBy from './FilterBy';
+import styles from './Filters.module.css';
+import OrderBy from './OrderBy';
 
-function Search() {
-  const [search, setSearch] = useState([]);
-  const [filterValue, setFilterValue] = useState("");
+function Search({ data, setExpensesFiltered }) {
+    const [filterValue, setFilterValue] = useState('');
 
-  useEffect(() => {
-    getAllUsers().then((response) => {
-      const user = [...response];
-      setSearch(user);
-    });
-  });
+    const filteredExpenses = data.filter(
+        expense =>
+            expense.userID.toString().includes(filterValue) ||
+            expense['_user'].email
+                .toLowerCase()
+                .includes(filterValue.toLowerCase())
+    );
 
-  const handleInputChange = (event) => {
-    setFilterValue(event.target.value);
-  };
+    useEffect(() => {
+        if (data) setExpensesFiltered(filteredExpenses);
+    }, [filterValue]);
 
-  const filteredExpenses = search.filter(
-    (expense) =>
-      expense.id.toString().includes(filterValue) ||
-      expense.email.toLowerCase().includes(filterValue.toLowerCase())
-  );
+    const handleInputChange = event => {
+        setFilterValue(event.target.value);
+    };
 
-  return (
-    <div className={styles.filters}>
-      <div className={styles.search}>
-        <label>Buscar</label>
-        <input
-          className={styles.inputSearch}
-          type="text"
-          onChange={handleInputChange}
-          value={filterValue}
-        />
-        <ul>
-          {filteredExpenses.map((expense) => (
-            <li key={expense.id}>
-              {expense.id} - {expense.name} - {expense.email}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <OrderBy />
-      <FilterBy />
-    </div>
-  );
+    return (
+        <>
+            <div className={styles.filters}>
+                <div className={styles.search}>
+                    <label>Buscar</label>
+                    <input
+                        className={styles.inputSearch}
+                        type="text"
+                        onChange={handleInputChange}
+                        value={filterValue}
+                    />
+                </div>
+                <OrderBy />
+                <FilterBy />
+            </div>
+        </>
+    );
 }
 
 export default Search;
