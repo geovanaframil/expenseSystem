@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import FilterBy from './FilterBy';
 import styles from './Filters.module.css';
-import OrderBy from './OrderBy';
 
 function Search({ data, setExpensesFiltered }) {
     const [filterValue, setFilterValue] = useState('');
@@ -24,18 +22,14 @@ function Search({ data, setExpensesFiltered }) {
 
     return (
         <>
-            <div className={styles.filters}>
-                <div className={styles.search}>
-                    <label>Buscar</label>
-                    <input
-                        className={styles.inputSearch}
-                        type="text"
-                        onChange={handleInputChange}
-                        value={filterValue}
-                    />
-                </div>
-                <OrderBy />
-                <FilterBy />
+            <div className={styles.search}>
+                <label>Buscar</label>
+                <input
+                    className={styles.inputSearch}
+                    type="text"
+                    onChange={handleInputChange}
+                    value={filterValue}
+                />
             </div>
         </>
     );

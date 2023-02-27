@@ -1,35 +1,34 @@
 import styles from './Filters.module.css';
-import { expensesAllUsers } from '../../Services/expenses.service';
 import { useEffect, useState } from 'react';
 
-function OrderBy() {
-    const [users, setUsers] = useState([]);
-    const [order, setOrder] = useState('id');
+function OrderBy({ data, setExpensesFiltered }) {
+    const [order, setOrder] = useState('');
 
     useEffect(() => {
-        // expensesAllUsers().then(data => {
-        //     let sortedUsers = [...data];
+        let dataCopy = [...data];
 
-        //     switch (order) {
-        //         case 'user':
-        //             sortedUsers.sort((a, b) =>
-        //                 a._user.name.localeCompare(b._user.name)
-        //             );
-        //             break;
-        //         case 'expenses':
-        //             sortedUsers.sort((a, b) => a.amount - b.amount);
-        //             break;
-        //         case 'status':
-        //             sortedUsers.sort((a, b) =>
-        //                 a.status.localeCompare(b.status)
-        //             );
-        //             break;
-        //         default:
-        //             sortedUsers.sort((a, b) => a.id - b.id);
-        //             break;
-        //     }
-        //     setUsers(sortedUsers);
-        // });
+        switch (order) {
+            case 'user':
+                dataCopy.sort((a, b) =>
+                    a._user.name.localeCompare(b._user.name)
+                );
+                break;
+            case 'expenses':
+                dataCopy.sort((a, b) => a.amount - b.amount);
+                break;
+            case 'status':
+                dataCopy.sort((a, b) =>
+                    a.status.localeCompare(b.status)
+                );
+                break;
+            case 'id':
+                dataCopy.sort((a, b) => a.id - b.id);
+                break;
+            default:
+                setExpensesFiltered(data);
+        }
+
+        setExpensesFiltered(dataCopy);
     }, [order]);
 
     const handleOrderByChange = e => {
@@ -40,22 +39,12 @@ function OrderBy() {
         <div className={styles.orderBy}>
             <label>Ordernar Por:</label>
             <select id="order" value={order} onChange={handleOrderByChange}>
-                <option></option>
+                <option value=""></option>
                 <option value="id">Id</option>
                 <option value="user">Usuário</option>
                 <option value="expenses">Despesas</option>
                 <option value="status">Status</option>
             </select>
-            {/* <ul>
-                {users.map(user => (
-                    <li key={user.id}>
-                        <span>{user._user.id} - </span>
-                        <span>{user._user.name} - </span>
-                        <span>{user.amount} - </span>
-                        <span>{user.status}</span>
-                    </li>
-                ))}
-            </ul> */}
         </div>
     );
 }
