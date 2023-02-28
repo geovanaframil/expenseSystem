@@ -1,7 +1,6 @@
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Summary.module.css';
 
-
 function Summary({ data }) {
     const totalExpenses = data.reduce((acc, atual) => {
         return acc + atual.amount;

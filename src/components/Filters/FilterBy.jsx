@@ -1,39 +1,33 @@
-import { useEffect, useState } from 'react';
 import styles from './Filters.module.css';
 
-function FilterBy({data, setExpensesFiltered}) {
-    const [selectedStatus, setSelectedStatus] = useState('');
+export default function FilterBy({ sortFields, items, onSorted }) {
+    
+    function handleSelectChange(e) {
+        const selected = e.target.value;
 
-    useEffect(() => {
-            let dataCopy = [...data];
-   
-            switch (selectedStatus) {
-                case 'PAGO':
-                case 'PENDENTE':
-                    dataCopy = dataCopy.filter(item => item.status === selectedStatus)
-                    break;
-                default:
-                    setExpensesFiltered(data);
-            }
+        if(selected === ''){
+            onSorted(null)
+            return
+        }
 
-            setExpensesFiltered(dataCopy);
-       
-    }, [selectedStatus]);
+        const itemsFiltered = items.filter(item => {
+            return item.status === selected;
+        });
 
-    const handleSelectChange = e => {
-        setSelectedStatus(e.target.value);
-    };
+        onSorted(itemsFiltered)
+    }
 
     return (
         <div className={styles.filterBy}>
             <label>Filtrar Por:</label>
-            <select value={selectedStatus} onChange={handleSelectChange}>
-                <option></option>
-                <option value="PAGO">Pago</option>
-                <option value="PENDENTE">Pendente</option>
+            <select onChange={handleSelectChange}>
+                <option value=""></option>
+                {sortFields.map((field, index) => (
+                    <option key={index} value={field.value}>
+                        {field.label}
+                    </option>
+                ))}
             </select>
         </div>
     );
 }
-
-export default FilterBy;

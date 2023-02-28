@@ -14,8 +14,9 @@ export default function Table({ config, data }) {
                 <tbody>
                     {data.map((usuario, index) => (
                         <tr key={index} id={usuario.id}>
-                            {config.map(item => (
+                            {config.map((item, index) => (
                                 <td
+                                    key={index}
                                     className={styles[item?.style]}
                                     attr-key={item.key}
                                     attr-value={usuario[item.key]}
