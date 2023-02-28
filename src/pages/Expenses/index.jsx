@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
-import FilterBy from '../../components/Filters/FilterBy';
 import OrderBy from '../../components/Filters/OrderBy';
 import Search from '../../components/Filters/Search';
+import FilterBy from '../../components/Filters/FilterBy';
 import Summary from '../../components/Summary';
 import Table from '../../components/Table';
 import { expensesAllUsers } from '../../Services/expenses.service';
@@ -50,6 +50,16 @@ export default function Expenses() {
         }
     }
 
+    function handlerOrder(data) {
+        console.log(data);
+        if (data === null) {
+            setExpenses(expensesInitial);
+        } else {
+            setExpenses(data);
+        }
+    }
+
+    console.log(expenses);
     const config = [
         {
             label: 'ID',
@@ -60,7 +70,6 @@ export default function Expenses() {
             key: 'email',
             style: 'blue',
             onClick: user => {
-                console.log(user);
                 navigate(`/usuarios/${user.id}`);
             }
         },
@@ -105,13 +114,29 @@ export default function Expenses() {
                     findFields={['id', 'email']}
                     onFiltered={data => handlerSearch(data)}
                 />
-
-                {/* <OrderBy
-                    data={expenses}
-                    setExpensesFiltered={setExpensesFiltered}
+                <OrderBy
+                    items={expensesInitial}
+                    orderFields={[
+                        {
+                            label: 'Id',
+                            value: 'id'
+                        },
+                        {
+                            label: 'Usuário',
+                            value: 'email'
+                        },
+                        {
+                            label: 'Despesas',
+                            value: 'amount'
+                        },
+                        {
+                            label: 'Status',
+                            value: 'status'
+                        }
+                    ]}
+                    onOrder={data => handlerOrder(data)}
                 />
-                 */}
-                 <FilterBy
+                <FilterBy
                     items={expensesInitial}
                     sortFields={[
                         {

@@ -1,6 +1,6 @@
 import styles from './Filters.module.css';
 
-export default function Search2({ findFields, items, onFiltered }) {
+export default function Search({ findFields, items, onFiltered }) {
     function handlerChange(e) {
         let inputSearchValue = e.target.value;
 
