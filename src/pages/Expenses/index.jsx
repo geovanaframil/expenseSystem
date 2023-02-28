@@ -42,6 +42,13 @@ export default function Expenses() {
         }
     }
 
+    function handlerFilter(data) {
+        if (data === null) {
+            setExpenses(expensesInitial);
+        } else {
+            setExpenses(data);
+        }
+    }
 
     const config = [
         {
@@ -98,14 +105,26 @@ export default function Expenses() {
                     findFields={['id', 'email']}
                     onFiltered={data => handlerSearch(data)}
                 />
+
                 {/* <OrderBy
                     data={expenses}
                     setExpensesFiltered={setExpensesFiltered}
                 />
-                <FilterBy
-                    data={expenses}
-                    setExpensesFiltered={setExpensesFiltered}
-                /> */}
+                 */}
+                 <FilterBy
+                    items={expensesInitial}
+                    sortFields={[
+                        {
+                            label: 'Pago',
+                            value: 'PAGO'
+                        },
+                        {
+                            label: 'Pendente',
+                            value: 'PENDENTE'
+                        }
+                    ]}
+                    onSorted={data => handlerFilter(data)}
+                />
             </div>
             <Table config={config} data={expensesFormatedInRealMoney} />
             <div className={styles.wrapperButton}>

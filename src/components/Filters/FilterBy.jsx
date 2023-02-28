@@ -1,51 +1,33 @@
-import { useEffect, useState } from 'react';
 import styles from './Filters.module.css';
 
-{/* <SelectSort  sortField="name" fields={[
-  {
-    label: 'Pago', 
-    value: 'pago'
-  },  {
-    label: 'Pendente', 
-    value: 'pentend'
-  }]} 
-  data={users} 
-  onSorted={(data)=> setUsers(data) }}
-></SelectSort> */}
+export default function FilterBy({ sortFields, items, onSorted }) {
+    
+    function handleSelectChange(e) {
+        const selected = e.target.value;
 
-function FilterBy({data, setExpensesFiltered}) {
-    const [selectedStatus, setSelectedStatus] = useState('');
+        if(selected === ''){
+            onSorted(null)
+            return
+        }
 
-    useEffect(() => {
-            let dataCopy = [...data];
-   
-            switch (selectedStatus) {
-                case 'PAGO':
-                case 'PENDENTE':
-                    dataCopy = dataCopy.filter(item => item.status === selectedStatus)
-                    break;
-                default:
-                    setExpensesFiltered(data);
-            }
+        const itemsFiltered = items.filter(item => {
+            return item.status === selected;
+        });
 
-            setExpensesFiltered(dataCopy);
-       
-    }, [selectedStatus]);
-
-    const handleSelectChange = e => {
-        setSelectedStatus(e.target.value);
-    };
+        onSorted(itemsFiltered)
+    }
 
     return (
         <div className={styles.filterBy}>
             <label>Filtrar Por:</label>
-            <select value={selectedStatus} onChange={handleSelectChange}>
-                <option></option>
-                <option value="PAGO">Pago</option>
-                <option value="PENDENTE">Pendente</option>
+            <select onChange={handleSelectChange}>
+                <option value=""></option>
+                {sortFields.map((field, index) => (
+                    <option key={index} value={field.value}>
+                        {field.label}
+                    </option>
+                ))}
             </select>
         </div>
     );
 }
-
-export default FilterBy;
