@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react';
 import styles from './Filters.module.css';
 
-function Search({ data, setExpensesFiltered }) {
-    const [filterValue, setFilterValue] = useState('');
+export default function Search2({ findFields, items, onFiltered }) {
+    function handlerChange(e) {
+        let inputSearchValue = e.target.value;
 
-    const filteredExpenses = data.filter(
-        expense =>
-            expense.userID.toString().includes(filterValue) ||
-            expense['_user'].email
-                .toLowerCase()
-                .includes(filterValue.toLowerCase())
-    );
+        if (inputSearchValue === '') {
+            onFiltered(null);
+            return;
+        }
 
-    useEffect(() => {
-        if (data) setExpensesFiltered(filteredExpenses);
-    }, [filterValue]);
+        const itemsMaped = items.filter(item => {
+            return findFields.some(field => {
+                return String(item[field]).includes(
+                    inputSearchValue.toLowerCase()
+                );
+            });
+        });
 
-    const handleInputChange = event => {
-        setFilterValue(event.target.value);
-    };
+        onFiltered(itemsMaped);
+    }
 
     return (
         <>
@@ -27,12 +27,9 @@ function Search({ data, setExpensesFiltered }) {
                 <input
                     className={styles.inputSearch}
                     type="text"
-                    onChange={handleInputChange}
-                    value={filterValue}
+                    onChange={handlerChange}
                 />
             </div>
         </>
     );
 }
-
-export default Search;

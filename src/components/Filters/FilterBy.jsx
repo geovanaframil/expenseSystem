@@ -1,6 +1,18 @@
 import { useEffect, useState } from 'react';
 import styles from './Filters.module.css';
 
+{/* <SelectSort  sortField="name" fields={[
+  {
+    label: 'Pago', 
+    value: 'pago'
+  },  {
+    label: 'Pendente', 
+    value: 'pentend'
+  }]} 
+  data={users} 
+  onSorted={(data)=> setUsers(data) }}
+></SelectSort> */}
+
 function FilterBy({data, setExpensesFiltered}) {
     const [selectedStatus, setSelectedStatus] = useState('');
 

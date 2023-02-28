@@ -13,25 +13,35 @@ import styles from './Expenses.module.css';
 export default function Expenses() {
     const navigate = useNavigate();
     const [expenses, setExpenses] = useState([]);
-    const [expensesFiltered, setExpensesFiltered] = useState([]);
+    const [expensesInitial, setExpensesInitial] = useState([]);
+
+    async function fetchExpenses() {
+        let response = await expensesAllUsers();
+
+        const expensesReduce = response.map(usuario => {
+            return {
+                id: usuario.userID,
+                email: usuario['_user'].email,
+                amount: usuario.amount,
+                status: usuario.status
+            };
+        });
+        setExpenses(expensesReduce);
+        setExpensesInitial(expensesReduce);
+    }
 
     useEffect(() => {
-        async function expenses() {
-            let expense = await expensesAllUsers();
-            setExpenses(expense);
-            setExpensesFiltered(expense);
-        }
-        expenses();
+        fetchExpenses();
     }, []);
 
-    const expensesReduce = expensesFiltered.map(usuario => {
-        return {
-            id: usuario.userID,
-            email: usuario['_user'].email,
-            amount: formatPrice(usuario.amount),
-            status: usuario.status
-        };
-    });
+    function handlerSearch(data) {
+        if (data === null) {
+            setExpenses(expensesInitial);
+        } else {
+            setExpenses(data);
+        }
+    }
+
 
     const config = [
         {
@@ -66,28 +76,38 @@ export default function Expenses() {
             backgroundColor: '#2196F3'
         },
         onClick: () => {
-            console.log('teste')
+            console.log('teste');
         }
     };
 
+    const expensesFormatedInRealMoney = expenses.map(expense => {
+        return {
+            id: expense.id,
+            email: expense.email,
+            amount: formatPrice(expense.amount),
+            status: expense.status
+        };
+    });
+
     return (
         <div className={`${styles.containerExpenses} container`}>
-            <Summary data={expensesFiltered} />
+            <Summary data={expenses} />
             <div className={styles.containerFilters}>
                 <Search
-                    data={expenses}
-                    setExpensesFiltered={setExpensesFiltered}
+                    items={expensesInitial}
+                    findFields={['id', 'email']}
+                    onFiltered={data => handlerSearch(data)}
                 />
-                <OrderBy
+                {/* <OrderBy
                     data={expenses}
                     setExpensesFiltered={setExpensesFiltered}
                 />
                 <FilterBy
                     data={expenses}
                     setExpensesFiltered={setExpensesFiltered}
-                />
+                /> */}
             </div>
-            <Table config={config} data={expensesReduce} />
+            <Table config={config} data={expensesFormatedInRealMoney} />
             <div className={styles.wrapperButton}>
                 <Button config={configButton} />
             </div>
