@@ -1,18 +1,33 @@
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Summary.module.css';
 
-function Summary({ data }) {
-    const totalExpenses = data.reduce((acc, atual) => {
-        return acc + atual.amount;
-    }, 0);
+function Summary({ data, page }) {
+    let totalExpenses = 0;
+    let expensesPaid = 0;
+    let totalPaid = 0;
 
-    const expensesPaid = data.filter(expense => {
-        return expense.status === 'PAGO';
-    });
-   
-    const totalPaid = expensesPaid.reduce((acc, atual) => {
-        return acc + atual.amount;
-    }, 0);
+    if (page === 'expenses') {
+        totalExpenses = data.reduce((acc, atual) => {
+            return acc + atual.amount;
+        }, 0);
+
+        expensesPaid = data.filter(expense => {
+            return expense.status === 'PAGO';
+        });
+
+        totalPaid = expensesPaid.reduce((acc, atual) => {
+            return acc + atual.amount;
+        }, 0);
+    }
+    if (page === 'users') {
+         totalExpenses = data.reduce((acc, atual) => {
+            return acc + atual.PENDENTE;
+        }, 0);
+
+        totalPaid = data.reduce((acc, atual) => {
+            return acc + atual.PAGO;
+        }, 0);
+    }
 
     return (
         <div className={styles.summary}>

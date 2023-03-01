@@ -26,6 +26,9 @@
 .blue {
     color: var(--blue-300);
 }
+.green{
+    color: var(--green-300);
+}
 td[attr-key='email'] {
     cursor: pointer;
 }
