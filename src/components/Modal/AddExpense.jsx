@@ -1,22 +1,16 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import styles from "./Modal.module.css";
-import addNewExpense from "../../Services/expenses.service.js";
 
 Modal.setAppElement("#root");
 
 export default function AddExpense() {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [categoryName, setCategoryName] = useState("");
-  const [amount, setAmount] = useState("");
 
-  const handleCategoryName = (e) => {
-    setCategoryName(e.target.value);
-  };
-
-  const handleAmount = (e) => {
-    setAmount(e.target.value);
-  };
+  function handleSelectChange(e) {
+    const selected = e.target.value;
+    console.log(selected)
+  }
 
   function openModal() {
     setIsOpen(true);
@@ -42,20 +36,16 @@ export default function AddExpense() {
           <div className={styles.category}>
             <label>Categoria</label>
             <select>
-              <option></option>
+              <option>Teste1</option>
+              <option>Teste2</option>
             </select>
           </div>
           <div className={styles.inputUser}>
-            <input
-              type="text"
-              placeholder="Usuário"
-              value={userName}
-              onChange={handleUserName}
-            />
+            <input type="text" placeholder="Usuário" />
           </div>
           <div className={styles.value}>
             <label>Valor</label>
-            <input type="number" value={amount} onChange={handleAmount} />
+            <input type="number" />
           </div>
         </div>
         <button onClick={closeModal}>Fechar Modal</button>

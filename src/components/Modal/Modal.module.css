@@ -38,7 +38,7 @@ input::placeholder {
   font-size: 16px;
 }
 
-input {
+select {
   width: 392px;
   outline: none;
   border-top-style: none;
