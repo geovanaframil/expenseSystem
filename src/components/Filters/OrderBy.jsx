@@ -5,11 +5,11 @@ export default function OrderBy({ orderFields, items, onOrder }) {
         const selected = e.target.value;
 
         if (selected === '') {
-            onOrder(null);
+            onOrder([...items]);
             return;
         }
 
-        const itemsOrder = items.sort((a, b) => {
+        const itemsOrder = [...items].sort((a, b) => {
             return a[selected] < b[selected]
                 ? -1
                 : a[selected] > b[selected]
