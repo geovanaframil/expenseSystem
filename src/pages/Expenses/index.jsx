@@ -9,7 +9,7 @@ import Table from '../../components/Table';
 import { expensesAllUsers } from '../../Services/expenses.service';
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Expenses.module.css';
-// import AddExpense from "../../components/Modal/addExpense";
+import AddExpense from "../../components/Modal/addExpense";
 
 export default function Expenses() {
     const navigate = useNavigate();
@@ -150,7 +150,7 @@ export default function Expenses() {
             <div className={styles.wrapperButton}>
                 <Button config={configButton} />
             </div>
-            {/* <AddExpense /> */}
+            <AddExpense />
         </div>
     );
 }
