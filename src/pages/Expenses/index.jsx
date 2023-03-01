@@ -6,7 +6,7 @@ import Search from '../../components/Filters/Search';
 import FilterBy from '../../components/Filters/FilterBy';
 import Summary from '../../components/Summary';
 import Table from '../../components/Table';
-import { expensesAllUsers } from '../../Services/expenses.service';
+import expensesAllUsers from '../../Services/expensesAllUsers.service.js';
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Expenses.module.css';
 import AddExpense from "../../components/Modal/addExpense";

@@ -33,15 +33,16 @@
   gap: 32px;
 }
 
-input::placeholder {
-  font-weight: 400px;
-  font-size: 16px;
-}
-
-select {
+select, input {
   width: 392px;
   outline: none;
   border-top-style: none;
   border-left-style: none;
   border-right-style: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
 }

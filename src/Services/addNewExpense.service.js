@@ -1,14 +1,4 @@
-const url = "http://localhost:3000";
-
-async function expensesAllUsers() {
-  const res = await fetch(`${url}/expenses`);
-
-  const json = await res.json();
-
-  return json;
-}
-
-async function addNewExpense() {
+export default async function addNewExpense() {
   const headers = new Headers();
 
   headers.append("content-type", "application/json");
@@ -33,5 +23,3 @@ async function addNewExpense() {
     await response.text();
   }
 }
-
-export { expensesAllUsers, addNewExpense };
