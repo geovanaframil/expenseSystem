@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import styles from "./Modal.module.css";
 import getAllCategories from "../../Services/categories.service";
 import getAllUsers from "../../Services/allUsers.service";
 import Button from "../Button";
+import { layoutContext } from "../../context/layoutContext";
 
 Modal.setAppElement("#root");
 
 export default function AddExpense() {
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const { layout, setLayout } = useContext(layoutContext);
   const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -27,12 +28,8 @@ export default function AddExpense() {
     getUsers();
   }, []);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
   function closeModal() {
-    setIsOpen(false);
+    setLayout({ ...layout, modal: { open: false } });
   }
 
   const configSaveButton = {
@@ -60,11 +57,11 @@ export default function AddExpense() {
 
   return (
     <div>
-      <button onClick={openModal}>Abrir Modal</button>
+      {/* <button onClick={openModal}>Abrir Modal</button> */}
       <Modal
         className={styles.modal}
         overlayClassName={styles.overlay}
-        isOpen={modalIsOpen}
+        isOpen={layout.modal.show}
         onRequestClose={closeModal}
       >
         <div className={styles.titleModal}>
@@ -76,7 +73,7 @@ export default function AddExpense() {
             <select>
               <option></option>
               {categories.map((category) => {
-                return <option value={category.id}>{category.name}</option>;
+                return <option key={category.id} value={category.id}>{category.name}</option>;
               })}
             </select>
           </div>
@@ -85,7 +82,7 @@ export default function AddExpense() {
             <select>
               <option></option>
               {users.map((user) => {
-                return <option value={user.id}>{user.name}</option>;
+                return <option key={user.id} value={user.id}>{user.name}</option>;
               })}
             </select>
           </div>

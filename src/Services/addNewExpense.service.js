@@ -10,7 +10,7 @@ export default async function addNewExpense() {
       name: categoryName,
       categoryID: categoryID,
       userID: userId,
-      amount: amountValue,
+      amount: Number(amountValue),
     }),
   };
 
