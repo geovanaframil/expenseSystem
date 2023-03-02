@@ -57,7 +57,6 @@ export default function AddExpense() {
 
   return (
     <div>
-      {/* <button onClick={openModal}>Abrir Modal</button> */}
       <Modal
         className={styles.modal}
         overlayClassName={styles.overlay}
@@ -73,7 +72,11 @@ export default function AddExpense() {
             <select>
               <option></option>
               {categories.map((category) => {
-                return <option key={category.id} value={category.id}>{category.name}</option>;
+                return (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                );
               })}
             </select>
           </div>
@@ -82,7 +85,11 @@ export default function AddExpense() {
             <select>
               <option></option>
               {users.map((user) => {
-                return <option key={user.id} value={user.id}>{user.name}</option>;
+                return (
+                  <option key={user.id} value={user.id}>
+                    {user.name}
+                  </option>
+                );
               })}
             </select>
           </div>

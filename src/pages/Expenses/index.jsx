@@ -89,8 +89,7 @@ export default function Expenses() {
       backgroundColor: "#2196F3",
     },
     onClick: () => {
-      console.log("teste");
-      setLayout({ ...layout, modal: { open: true } });
+      setLayout({ ...layout, modal: { show: true } });
     },
   };
 
@@ -151,10 +150,7 @@ export default function Expenses() {
       </div>
       <Table config={config} data={expensesFormatedInRealMoney} />
       <div className={styles.wrapperButton}>
-        {/* <Button config={configButton} /> */}
-        <button onClick={() => setLayout({ ...layout, modal: { open: true } })}>
-          Teste
-        </button>
+        <Button config={configButton} />
       </div>
       <AddExpense />
     </div>
