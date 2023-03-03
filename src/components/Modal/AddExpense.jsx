@@ -1,15 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import styles from "./Modal.module.css";
 import getAllCategories from "../../Services/categories.service";
 import getAllUsers from "../../Services/allUsers.service";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
+import addNewExpense from "../../Services/addNewExpense.service";
+import { expenseContext } from "../../context/expenseContext";
 
 Modal.setAppElement("#root");
 
 export default function AddExpense() {
+  const nameRef = useRef(null);
+  const categoryRef = useRef(null);
+  const userRef = useRef(null);
+  const amountRef = useRef(null);
   const { layout, setLayout } = useContext(layoutContext);
+  const { fetchExpenses } = useContext(expenseContext);
   const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -32,6 +39,19 @@ export default function AddExpense() {
     setLayout({ ...layout, modal: { open: false } });
   }
 
+  async function handleSave() {
+    const body = {
+      name: nameRef.current.value,
+      categoryID: categoryRef.current.value,
+      userID: userRef.current.value,
+      amount: Number(amountRef.current.value),
+      status: "PENDENTE",
+    };
+
+    addNewExpense(body);
+    fetchExpenses();
+  }
+
   const configSaveButton = {
     name: "SALVAR",
     style: {
@@ -39,6 +59,7 @@ export default function AddExpense() {
       backgroundColor: "#2196F3",
     },
     onClick: () => {
+      handleSave();
       closeModal();
     },
   };
@@ -67,14 +88,18 @@ export default function AddExpense() {
           <h2>ADICIONAR DESPESA</h2>
         </div>
         <div className={styles.fields}>
-          <div className={styles.category}>
+          <div>
+            <label>Nome</label>
+            <input type="text" ref={nameRef} />
+          </div>
+          <div className={styles.categoryId}>
             <label>Categoria</label>
-            <select>
+            <select ref={categoryRef}>
               <option></option>
               {categories.map((category) => {
                 return (
                   <option key={category.id} value={category.id}>
-                    {category.name}
+                    {category.id}
                   </option>
                 );
               })}
@@ -82,12 +107,12 @@ export default function AddExpense() {
           </div>
           <div className={styles.inputUser}>
             <label>Usuário</label>
-            <select>
+            <select ref={userRef}>
               <option></option>
               {users.map((user) => {
                 return (
                   <option key={user.id} value={user.id}>
-                    {user.name}
+                    {user.id}
                   </option>
                 );
               })}
@@ -95,7 +120,7 @@ export default function AddExpense() {
           </div>
           <div className={styles.value}>
             <label>Valor</label>
-            <input type="text" />
+            <input type="text" ref={amountRef} />
           </div>
         </div>
         <div className={styles.buttons}>

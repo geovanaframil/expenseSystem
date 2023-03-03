@@ -1,4 +1,6 @@
-export default async function addNewExpense() {
+const url = "http://localhost:3000";
+
+export default async function addNewExpense(body) {
   const headers = new Headers();
 
   headers.append("content-type", "application/json");
@@ -6,12 +8,7 @@ export default async function addNewExpense() {
   const initExpense = {
     headers: headers,
     method: "POST",
-    body: JSON.stringify({
-      name: categoryName,
-      categoryID: categoryID,
-      userID: userId,
-      amount: Number(amountValue),
-    }),
+    body: JSON.stringify(body),
   };
 
   let response = await fetch(`${url}/expenses`, initExpense);
