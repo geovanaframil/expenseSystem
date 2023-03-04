@@ -8,6 +8,8 @@
     border-collapse: collapse;
 }
 
+
+
 .table thead {
     background: #f3f6f9;
 }
@@ -15,6 +17,9 @@
 .table tbody td {
     padding: 16px 10px;
     text-align: start;
+}
+.table thead th {
+    min-width: 33%;
 }
 
 .table tbody tr:nth-child(even) {
@@ -26,7 +31,7 @@
 .blue {
     color: var(--blue-300);
 }
-.green{
+.green {
     color: var(--green-300);
 }
 td[attr-key='email'] {
@@ -37,4 +42,8 @@ td[attr-value='PAGO'] {
 }
 td[attr-value='PENDENTE'] {
     color: var(--red-100);
+}
+
+.buttonsWrapper {
+    background-color: red;
 }

@@ -11,7 +11,7 @@ export default function Search({ findFields, items, onFiltered }) {
 
         const itemsMaped = items.filter(item => {
             return findFields.some(field => {
-                return String(item[field]).includes(
+                return String(item[field].toLowerCase()).includes(
                     inputSearchValue.toLowerCase()
                 );
             });
