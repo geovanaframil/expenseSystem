@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import Modal from "react-modal";
 import styles from "./Modal.module.css";
 import getAllCategories from "../../Services/categories.service";
 import getAllUsers from "../../Services/allUsers.service";
@@ -8,9 +7,8 @@ import { layoutContext } from "../../context/layoutContext";
 import addNewExpense from "../../Services/addNewExpense.service";
 import { expenseContext } from "../../context/expenseContext";
 
-Modal.setAppElement("#root");
 
-export default function AddExpense() {
+export default function FormCreateExpense() {
   const nameRef = useRef(null);
   const categoryRef = useRef(null);
   const userRef = useRef(null);
@@ -78,12 +76,7 @@ export default function AddExpense() {
 
   return (
     <div>
-      <Modal
-        className={styles.modal}
-        overlayClassName={styles.overlay}
-        isOpen={layout.modal.show}
-        onRequestClose={closeModal}
-      >
+      <form>
         <div className={styles.titleModal}>
           <h2>ADICIONAR DESPESA</h2>
         </div>
@@ -127,7 +120,7 @@ export default function AddExpense() {
           <Button config={configSaveButton} />
           <Button config={configCancelButton} />
         </div>
-      </Modal>
+      </form>
     </div>
   );
 }
