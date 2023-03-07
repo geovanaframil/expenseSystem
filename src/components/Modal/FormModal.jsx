@@ -3,17 +3,11 @@ import Modal from "react-modal";
 import styles from "./Modal.module.css";
 import { layoutContext } from "../../context/layoutContext";
 import FormCreateExpense from "./FormCreateExpense";
+import FormCreateUser from "./FormCreateUser";
 
 Modal.setAppElement("#root");
 
-function FormFactory(type) {
-  const forms = {
-    CreateExpense: () => <div>form</div>,
-  };
-  return forms[type];
-}
-
-export default function AddExpense() {
+export default function FormModal() {
   const { layout, setLayout } = useContext(layoutContext);
 
   function closeModal() {
@@ -29,6 +23,8 @@ export default function AddExpense() {
         onRequestClose={closeModal}
       >
         {layout.modal.action === "CreateExpense" && <FormCreateExpense />}
+        {layout.modal.action === "CreateUser" && <FormCreateUser />}
+        
       </Modal>
     </div>
   );

@@ -4,13 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { ExpenseProvider } from "./context/expenseContext";
 import { LayoutProvider } from "./context/layoutContext";
+import { UserProvider } from "./context/userContext";
 import "./styles/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <LayoutProvider>
       <ExpenseProvider>
-        <App />
+        <UserProvider>
+          <App />
+        </UserProvider>
       </ExpenseProvider>
     </LayoutProvider>
   </BrowserRouter>

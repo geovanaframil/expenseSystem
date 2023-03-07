@@ -8,7 +8,7 @@ import Summary from "../../components/Summary";
 import Table from "../../components/Table";
 import { formatPrice } from "../../utils/formatPrice";
 import styles from "./Expenses.module.css";
-import AddExpense from "../../components/Modal/FormModal";
+import FormModal from "../../components/Modal/FormModal";
 import { layoutContext } from "../../context/layoutContext";
 import { expenseContext } from "../../context/expenseContext";
 
@@ -138,7 +138,6 @@ export default function Expenses() {
       <div className={styles.wrapperButton}>
         <Button config={configButton} />
       </div>
-      <AddExpense />
     </div>
   );
 }
