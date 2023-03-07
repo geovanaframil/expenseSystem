@@ -18,9 +18,9 @@ export default function Expenses() {
     const { expenses, setExpenses, fetchExpenses } = useContext(expenseContext);
     const [term, setTerm] = useState('');
 
-    useEffect(() => {
-        fetchExpenses();
-    }, []);
+  useEffect(() => {
+    fetchExpenses();
+  }, []);
 
     function handlerSearch(data) {
         setExpenses(data);
@@ -66,26 +66,26 @@ export default function Expenses() {
         }
     ];
 
-    const configButton = {
-        name: 'ADICIONAR DESPESA',
-        style: {
-            color: 'white',
-            backgroundColor: '#2196F3'
-        },
-        onClick: () => {
-            setLayout({ ...layout, modal: { show: true } });
-        }
-    };
+  const configButton = {
+    name: "ADICIONAR DESPESA",
+    style: {
+      color: "white",
+      backgroundColor: "#2196F3",
+    },
+    onClick: () => {
+      setLayout({ ...layout, modal: { show: true, action: "CreateExpense" } });
+    },
+  };
 
-    const expensesFormatedInRealMoney = expenses.map(expense => {
-        return {
-            id: expense.id,
-            email: expense.email,
-            amount: formatPrice(expense.amount),
-            status: expense.status,
-            show: expense.show
-        };
-    });
+  const expensesFormatedInRealMoney = expenses.map((expense) => {
+    return {
+      id: expense.id,
+      email: expense.email,
+      amount: formatPrice(expense.amount),
+      status: expense.status,
+      show: expense.show,
+    };
+  });
 
     return (
         <div className={`${styles.containerExpenses} container`}>

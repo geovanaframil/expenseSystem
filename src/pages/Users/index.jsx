@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import OrderBy from '../../components/Filters/OrderBy';
@@ -8,8 +8,10 @@ import Table from '../../components/Table';
 import expensesAllUsers from '../../Services/expensesAllUsers.service.js';
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Users.module.css';
+import { layoutContext } from '../../context/layoutContext';
 
 export default function Users() {
+    const { layout, setLayout } = useContext(layoutContext);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [usersInitial, setUsersInitial] = useState([]);
@@ -105,6 +107,7 @@ export default function Users() {
         },
         onClick: () => {
             console.log('teste');
+            setLayout({ ...layout, modal: { show: true, action: "CreateUser" } });
         }
     };
 
