@@ -52,10 +52,37 @@ input {
   color: var(--blue-300);
 }
 
+.fieldsCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 90px;
+}
+
 .inputCategory {
   border-color: var(--blue-300);
 }
 
-.fields {
-  margin: 100px 150px;
+.titleModalDelete {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--red-300);
+  text-align: center;
+  margin: 38px 40px;
+}
+
+.msgConfirmingDeletion {
+  margin-top: 115px;
+  margin-bottom: 100px;
+}
+
+.msg {
+  font-weight: 400;
+  text-align: center;
+  font-size: 20px;
+}
+
+.msg span {
+  color: var(--blue-300);
 }

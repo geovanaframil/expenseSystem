@@ -59,7 +59,10 @@ export default function Categories() {
       border: "1px solid #D32F2F80",
     },
     onClick: () => {
-      console.log("Deletar");
+      setLayout({
+        ...layout,
+        modal: { show: true, action: "DeleteCategory" },
+      });
     },
   };
 

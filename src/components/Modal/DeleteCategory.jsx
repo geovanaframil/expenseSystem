@@ -1,10 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
 
 export default function EditCategory() {
-    const nameCategoryRef = useRef(null)
   const { layout, setLayout } = useContext(layoutContext);
 
   //   useEffect(() => {
@@ -15,13 +14,8 @@ export default function EditCategory() {
     setLayout({ ...layout, modal: { open: false } });
   }
 
-  async function handleSave() {
-    const body = {
-    };
-  }
-
-  const configSaveButton = {
-    name: "SALVAR",
+  const configConfirmButton = {
+    name: "SIM",
     style: {
       color: "white",
       backgroundColor: "#2196F3",
@@ -33,7 +27,7 @@ export default function EditCategory() {
   };
 
   const configCancelButton = {
-    name: "CANCELAR",
+    name: "NÃO",
     style: {
       color: "#D32F2F",
       backgroundColor: "transparent",
@@ -47,17 +41,14 @@ export default function EditCategory() {
   return (
     <div>
       <form>
-        <div className={styles.titleModal}>
-          <h2>EDITAR CATEGORIA</h2>
+        <div className={styles.titleModalDelete}>
+          <h2>DELETAR CATEGORIA</h2>
         </div>
-        <div className={styles.fieldsCategory}>
-          <div className={styles.categoryName}>
-            <label className={styles.category}>Categoria</label>
-            <input type="text" ref={nameCategoryRef} className={styles.inputCategory}/>
-          </div>
-        </div>
+        <div className={styles.msgConfirmingDeletion}>
+          <p className={styles.msg}>Tem certeza que deseja deletar a categoria <span>Teste</span>?</p>
+        </div> 
         <div className={styles.buttons}>
-          <Button config={configSaveButton} />
+          <Button config={configConfirmButton} />
           <Button config={configCancelButton} />
         </div>
       </form>
