@@ -4,6 +4,7 @@ import styles from "./Modal.module.css";
 import { layoutContext } from "../../context/layoutContext";
 import FormCreateExpense from "./FormCreateExpense";
 import FormCreateUser from "./FormCreateUser";
+import FormEditCategory from "./FormEditCategory";
 
 Modal.setAppElement("#root");
 
@@ -24,7 +25,7 @@ export default function FormModal() {
       >
         {layout.modal.action === "CreateExpense" && <FormCreateExpense />}
         {layout.modal.action === "CreateUser" && <FormCreateUser />}
-        
+        {layout.modal.action === "EditCategory" && <FormEditCategory />}
       </Modal>
     </div>
   );

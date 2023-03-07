@@ -33,7 +33,8 @@
   gap: 32px;
 }
 
-select, input {
+select,
+input {
   width: 392px;
   outline: none;
   border-top-style: none;
@@ -45,4 +46,16 @@ select, input {
   display: flex;
   justify-content: center;
   gap: 40px;
+}
+
+.category {
+  color: var(--blue-300);
+}
+
+.inputCategory {
+  border-color: var(--blue-300);
+}
+
+.fields {
+  margin: 100px 150px;
 }
