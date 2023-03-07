@@ -5,7 +5,7 @@ export default function OrderBy({ orderFields, items, onOrder }) {
         const selected = e.target.value;
 
         if (selected === '') {
-            onOrder([...items]);
+            onOrder(null);
             return;
         }
 

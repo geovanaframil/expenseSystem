@@ -9,6 +9,9 @@ export default function FilterBy({
 }) {
     function handleSelectChange(e) {
         const selected = e.target.value;
+        if (selected === '') {
+            onSorted(null);
+        }
 
         let itemsMaped = items.map(item => {
             const show = findFields.some(field => {

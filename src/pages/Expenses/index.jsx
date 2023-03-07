@@ -14,32 +14,25 @@ import { expenseContext } from '../../context/expenseContext';
 export default function Expenses() {
     const { layout, setLayout } = useContext(layoutContext);
     const navigate = useNavigate();
-    const { expenses, setExpenses, fetchExpenses } = useContext(expenseContext);
+    const { expenses, setExpenses, expensesInitial, fetchExpenses } =
+        useContext(expenseContext);
     const [term, setTerm] = useState('');
 
-  useEffect(() => {
-    fetchExpenses();
-  }, []);
+    useEffect(() => {
+        fetchExpenses();
+    }, []);
 
     function handlerSearch(data) {
-        setExpenses(data);
+        if (data === null) {
+            setExpenses(expensesInitial);
+        } else {
+            setExpenses(data);
+        }
     }
 
     function handlerSetTerm(data) {
         setTerm(data);
     }
-
-    // function handlerFilter(data) {
-    //     if (data === null) {
-    //         setExpenses(expensesInitial);
-    //     } else {
-    //         setExpenses(data);
-    //     }
-    // }
-
-    // function handlerOrder(data) {
-    //     setExpenses(data);
-    // }
 
     const config = [
         {
@@ -65,26 +58,29 @@ export default function Expenses() {
         }
     ];
 
-  const configButton = {
-    name: "ADICIONAR DESPESA",
-    style: {
-      color: "white",
-      backgroundColor: "#2196F3",
-    },
-    onClick: () => {
-      setLayout({ ...layout, modal: { show: true, action: "CreateExpense" } });
-    },
-  };
-
-  const expensesFormatedInRealMoney = expenses.map((expense) => {
-    return {
-      id: expense.id,
-      email: expense.email,
-      amount: formatPrice(expense.amount),
-      status: expense.status,
-      show: expense.show,
+    const configButton = {
+        name: 'ADICIONAR DESPESA',
+        style: {
+            color: 'white',
+            backgroundColor: '#2196F3'
+        },
+        onClick: () => {
+            setLayout({
+                ...layout,
+                modal: { show: true, action: 'CreateExpense' }
+            });
+        }
     };
-  });
+
+    const expensesFormatedInRealMoney = expenses.map(expense => {
+        return {
+            id: expense.id,
+            email: expense.email,
+            amount: formatPrice(expense.amount),
+            status: expense.status,
+            show: expense.show
+        };
+    });
 
     return (
         <div className={`${styles.containerExpenses} container`}>
