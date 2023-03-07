@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Categories from './pages/Categories';
 import Expenses from './pages/Expenses';
+import UserProfile from './pages/UserProfile';
 import Users from './pages/Users';
 
 export function Router() {
@@ -9,7 +10,7 @@ export function Router() {
             <Route path="/" element={<Expenses />} />
             <Route path="/despesas" element={<Expenses />} />
             <Route path="/usuarios" element={<Users />} />
-            <Route path="/usuarios/:userId" element={<Users />} />
+            <Route path="/usuarios/:userId" element={<UserProfile />} />
             <Route path="/usuarios/:userId/categoria/:categoriaId" element={<Users />} />
             <Route path="/categorias" element={<Categories />} />
             

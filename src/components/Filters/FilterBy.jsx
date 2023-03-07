@@ -1,20 +1,36 @@
 import styles from './Filters.module.css';
 
-export default function FilterBy({ sortFields, items, onSorted }) {
-    
+export default function FilterBy({
+    findFields,
+    sortFields,
+    items,
+    term,
+    onSorted
+}) {
     function handleSelectChange(e) {
         const selected = e.target.value;
 
-        if(selected === ''){
-            onSorted(null)
-            return
-        }
+        let itemsMaped = items.map(item => {
+            const show = findFields.some(field => {
+                return String(item[field].toLowerCase()).includes(
+                    term.toLowerCase()
+                );
+            });
 
-        const itemsFiltered = items.filter(item => {
-            return item.status === selected;
+            return { ...item, show };
         });
 
-        onSorted(itemsFiltered)
+        if (selected !== '') {
+            itemsMaped = itemsMaped.map(item => {
+                const show = sortFields.some(field => {
+                    return item.show ? item[field.key] === selected : item.show;
+                });
+
+                return { ...item, show };
+            });
+        }
+
+        onSorted(itemsMaped);
     }
 
     return (

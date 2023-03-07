@@ -7,7 +7,7 @@ export const expenseContext = createContext(initialState);
 
 export function ExpenseProvider({ children }) {
   const [expenses, setExpenses] = useState(initialState);
-  const [expensesInitial, setExpensesInitial] = useState(initialState);
+  // const [expensesInitial, setExpensesInitial] = useState(initialState);
 
   async function fetchExpenses() {
     let response = await expensesAllUsers();
@@ -22,12 +22,12 @@ export function ExpenseProvider({ children }) {
       };
     });
     setExpenses(expensesReduce);
-    setExpensesInitial(expensesReduce);
+    
   }
 
   return (
     <expenseContext.Provider
-      value={{ expenses, setExpenses, expensesInitial, setExpensesInitial, fetchExpenses }}
+      value={{ expenses, setExpenses, fetchExpenses }}
     >
       {children}
     </expenseContext.Provider>

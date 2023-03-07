@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import OrderBy from '../../components/Filters/OrderBy';
@@ -15,32 +15,32 @@ import { expenseContext } from '../../context/expenseContext';
 export default function Expenses() {
     const { layout, setLayout } = useContext(layoutContext);
     const navigate = useNavigate();
-    const { expenses, setExpenses, expensesInitial, fetchExpenses } =
-        useContext(expenseContext);
+    const { expenses, setExpenses, fetchExpenses } = useContext(expenseContext);
+    const [term, setTerm] = useState('');
 
     useEffect(() => {
         fetchExpenses();
     }, []);
 
     function handlerSearch(data) {
-        if (data === null) {
-            setExpenses(expensesInitial);
-        } else {
-            setExpenses(data);
-        }
-    }
-
-    function handlerFilter(data) {
-        if (data === null) {
-            setExpenses(expensesInitial);
-        } else {
-            setExpenses(data);
-        }
-    }
-
-    function handlerOrder(data) {
         setExpenses(data);
     }
+
+    function handlerSetTerm(data) {
+        setTerm(data);
+    }
+
+    // function handlerFilter(data) {
+    //     if (data === null) {
+    //         setExpenses(expensesInitial);
+    //     } else {
+    //         setExpenses(data);
+    //     }
+    // }
+
+    // function handlerOrder(data) {
+    //     setExpenses(data);
+    // }
 
     const config = [
         {
@@ -63,7 +63,6 @@ export default function Expenses() {
         {
             label: 'Status',
             key: 'status'
-            // action: <div>teste</div>
         }
     ];
 
@@ -93,12 +92,13 @@ export default function Expenses() {
             <Summary data={expenses} page="expenses" />
             <div className={styles.containerFilters}>
                 <Search
-                    items={expensesInitial}
+                    items={expenses}
                     findFields={['id', 'email']}
                     onFiltered={data => handlerSearch(data)}
+                    onTerm={data => handlerSetTerm(data)}
                 />
                 <OrderBy
-                    items={expensesInitial}
+                    items={expenses}
                     orderFields={[
                         {
                             label: 'Id',
@@ -117,21 +117,25 @@ export default function Expenses() {
                             value: 'status'
                         }
                     ]}
-                    onOrder={data => handlerOrder(data)}
+                    onOrder={data => handlerSearch(data)}
                 />
                 <FilterBy
-                    items={expensesInitial}
+                    items={expenses}
                     sortFields={[
                         {
                             label: 'Pago',
-                            value: 'PAGO'
+                            value: 'PAGO',
+                            key: 'status'
                         },
                         {
                             label: 'Pendente',
-                            value: 'PENDENTE'
+                            value: 'PENDENTE',
+                            key: 'status'
                         }
                     ]}
-                    onSorted={data => handlerFilter(data)}
+                    term={term}
+                    findFields={['id', 'email']}
+                    onSorted={data => handlerSearch(data)}
                 />
             </div>
             <Table configs={config} data={expensesFormatedInRealMoney} />
