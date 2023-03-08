@@ -2,9 +2,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
+import fetchEditCategory from "../../Services/editCategories.service";
 
 export default function EditCategory(props) {
-  console.log(props)
+  console.log(props.categoryID)
   const nameCategoryRef = useRef(null);
   const { layout, setLayout } = useContext(layoutContext);
 
@@ -17,7 +18,11 @@ export default function EditCategory(props) {
   }
 
   async function handleSave() {
-    const body = {};
+    const body = {
+      name: nameCategoryRef.current.value,
+    };
+
+    fetchEditCategory(body, props.categoryID)
   }
 
   const configSaveButton = {
