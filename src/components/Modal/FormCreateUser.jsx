@@ -4,25 +4,14 @@ import getAllUsers from "../../Services/allUsers.service";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
 import addNewUser from "../../Services/addNewUser.service";
-// import { userContext } from "../../context/userContext";
-import { expenseContext } from "../../context/expenseContext";
+import { userContext } from "../../context/userContext";
 
 export default function FormCreateUser() {
   const nameRef = useRef(null);
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
   const { layout, setLayout } = useContext(layoutContext);
-  const { fetchExpenses } = useContext(expenseContext);
-  const [users, setUsers] = useState([]);
-
-  async function getUsers() {
-    const data = await getAllUsers();
-    setUsers(data);
-  }
-
-  useEffect(() => {
-    getUsers();
-  }, []);
+  const { fetchUsers } = useContext(userContext);
 
   function closeModal() {
     setLayout({ ...layout, modal: { open: false } });
@@ -36,7 +25,7 @@ export default function FormCreateUser() {
     };
 
     addNewUser(body);
-    fetchExpenses();
+    fetchUsers();
   }
 
   const configSaveButton = {

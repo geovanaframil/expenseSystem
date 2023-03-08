@@ -1,11 +1,10 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import OrderBy from '../../components/Filters/OrderBy';
 import Search from '../../components/Filters/Search';
 import Summary from '../../components/Summary';
 import Table from '../../components/Table';
-import expensesAllUsers from '../../Services/expensesAllUsers.service.js';
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Users.module.css';
 import { layoutContext } from '../../context/layoutContext';
@@ -61,7 +60,6 @@ export default function Users() {
             backgroundColor: '#2196F3'
         },
         onClick: () => {
-            console.log('teste');
             setLayout({
                 ...layout,
                 modal: { show: true, action: 'CreateUser' }
