@@ -7,8 +7,8 @@ function Summary({ data, page }) {
     let totalPaid = 0;
 
     const dataShowed = data.filter(item => item.show === true);
-
-    if (page === 'expenses') {
+   
+    if (page === 'expenses' || page === 'userProfile') {
         totalExpenses = dataShowed.reduce((acc, atual) => {
             return acc + atual.amount;
         }, 0);
@@ -30,7 +30,7 @@ function Summary({ data, page }) {
             return acc + atual.PAGO;
         }, 0);
     }
-
+    
     return (
         <div className={styles.summary}>
             <div className={styles.totalPaid}>

@@ -56,7 +56,8 @@ export function UserProvider({ children }) {
                 setUsersInitial,
                 usersAllData,
                 setUsersAllData,
-                fetchUsers
+                fetchUsers,
+                getTotalExpenseByStatus
             }}
         >
             {children}
