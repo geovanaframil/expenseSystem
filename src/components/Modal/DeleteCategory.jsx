@@ -21,7 +21,6 @@ export default function EditCategory() {
       backgroundColor: "#2196F3",
     },
     onClick: () => {
-      handleSave();
       closeModal();
     },
   };

@@ -31,7 +31,7 @@ export default function Table({ configs, data, ...props }) {
                                                     config.onClick(item);
                                             }}
                                         >
-                                            {config?.action || item[config.key]}
+                                            {(config?.action && config.action(item)) || item[config.key]}
                                         </td>
                                     ))}
                                 </tr>

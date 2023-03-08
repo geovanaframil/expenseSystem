@@ -43,12 +43,6 @@ export default function Categories() {
       color: "white",
       backgroundColor: "#2196F3",
     },
-    onClick: () => {
-      setLayout({
-        ...layout,
-        modal: { show: true, action: "EditCategory" },
-      });
-    },
   };
 
   const configButtonDelete = {
@@ -78,9 +72,17 @@ export default function Categories() {
     {
       label: "Ações",
       key: "id",
-      action: (
+      action: (item) => (
         <div className="buttonsWrapper">
-          <Button config={configButtonEdit} />
+          <Button
+            config={configButtonEdit}
+            onClick={() =>
+              setLayout({
+                ...layout,
+                modal: { show: true, action: "EditCategory", categoryID: item.id },
+              })
+            }
+          />
           <Button config={configButtonDelete} />
         </div>
       ),

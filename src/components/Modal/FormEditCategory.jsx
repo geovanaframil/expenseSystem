@@ -3,8 +3,9 @@ import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
 
-export default function EditCategory() {
-    const nameCategoryRef = useRef(null)
+export default function EditCategory(props) {
+  console.log(props)
+  const nameCategoryRef = useRef(null);
   const { layout, setLayout } = useContext(layoutContext);
 
   //   useEffect(() => {
@@ -16,8 +17,7 @@ export default function EditCategory() {
   }
 
   async function handleSave() {
-    const body = {
-    };
+    const body = {};
   }
 
   const configSaveButton = {
@@ -53,7 +53,11 @@ export default function EditCategory() {
         <div className={styles.fieldsCategory}>
           <div className={styles.categoryName}>
             <label className={styles.category}>Categoria</label>
-            <input type="text" ref={nameCategoryRef} className={styles.inputCategory}/>
+            <input
+              type="text"
+              ref={nameCategoryRef}
+              className={styles.inputCategory}
+            />
           </div>
         </div>
         <div className={styles.buttons}>

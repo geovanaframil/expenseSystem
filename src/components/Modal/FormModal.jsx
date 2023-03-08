@@ -26,8 +26,10 @@ export default function FormModal() {
       >
         {layout.modal.action === "CreateExpense" && <FormCreateExpense />}
         {layout.modal.action === "CreateUser" && <FormCreateUser />}
-        {layout.modal.action === "EditCategory" && <FormEditCategory />}
-        {layout.modal.action === 'DeleteCategory' && <DeleteCategory />}
+        {layout.modal.action === "EditCategory" && (
+          <FormEditCategory categoryID={layout.modal.categoryID} />
+        )}
+        {layout.modal.action === "DeleteCategory" && <DeleteCategory />}
       </Modal>
     </div>
   );
