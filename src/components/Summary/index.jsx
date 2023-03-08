@@ -6,12 +6,14 @@ function Summary({ data, page }) {
     let expensesPaid = 0;
     let totalPaid = 0;
 
+    const dataShowed = data.filter(item => item.show === true);
+
     if (page === 'expenses') {
-        totalExpenses = data.reduce((acc, atual) => {
+        totalExpenses = dataShowed.reduce((acc, atual) => {
             return acc + atual.amount;
         }, 0);
 
-        expensesPaid = data.filter(expense => {
+        expensesPaid = dataShowed.filter(expense => {
             return expense.status === 'PAGO';
         });
 
@@ -20,11 +22,11 @@ function Summary({ data, page }) {
         }, 0);
     }
     if (page === 'users') {
-         totalExpenses = data.reduce((acc, atual) => {
+        totalExpenses = dataShowed.reduce((acc, atual) => {
             return acc + atual.PENDENTE;
         }, 0);
 
-        totalPaid = data.reduce((acc, atual) => {
+        totalPaid = dataShowed.reduce((acc, atual) => {
             return acc + atual.PAGO;
         }, 0);
     }
