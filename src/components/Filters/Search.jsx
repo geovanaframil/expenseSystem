@@ -15,7 +15,10 @@ export default function Search({ findFields, items, onFiltered, onTerm }) {
         });
 
         onFiltered(itemsMaped);
-        onTerm(inputSearchValue)
+
+        if (onTerm) {
+            onTerm(inputSearchValue);
+        }
     }
 
     return (

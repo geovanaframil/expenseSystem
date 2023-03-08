@@ -9,57 +9,16 @@ import expensesAllUsers from '../../Services/expensesAllUsers.service.js';
 import { formatPrice } from '../../utils/formatPrice';
 import styles from './Users.module.css';
 import { layoutContext } from '../../context/layoutContext';
+import { userContext } from '../../context/userContext';
 
 export default function Users() {
     const { layout, setLayout } = useContext(layoutContext);
     const navigate = useNavigate();
-    const [users, setUsers] = useState([]);
-    const [usersInitial, setUsersInitial] = useState([]);
 
-    async function fetchExpenses() {
-        let response = await expensesAllUsers();
-
-        const expensesReduce = response.map(usuario => {
-            return {
-                id: usuario.userID,
-                email: usuario['_user'].email,
-                amount: usuario.amount,
-                status: usuario.status,
-                show: true
-            };
-        });
-        usersFormated(expensesReduce);
-    }
-
-    function usersFormated(expenses) {
-        const usersData = {};
-        expenses.forEach(expense => {
-            if (!usersData[expense.id]) {
-                usersData[expense.id] = [];
-            }
-            usersData[expense.id].push(expense);
-        });
-
-        Object.keys(usersData).map(userID => {
-            const currentUser = {
-                id: null,
-                email: null,
-                PENDENTE: 0,
-                PAGO: 0,
-                show: true
-            };
-            usersData[userID].forEach(user => {
-                currentUser.id = user.id;
-                currentUser.email = user.email;
-                currentUser[user.status] += user.amount;
-            });
-            setUsers(prevUsers => [...prevUsers, currentUser]);
-            setUsersInitial(prevUsers => [...prevUsers, currentUser]);
-        });
-    }
+    const { users, setUsers, usersInitial, fetchUsers } = useContext(userContext);
 
     useEffect(() => {
-        fetchExpenses();
+        fetchUsers();
     }, []);
 
     function handlerSearch(data) {
@@ -68,10 +27,6 @@ export default function Users() {
         } else {
             setUsers(data);
         }
-    }
-
-    function handlerOrder(data) {
-        setUsers(data);
     }
 
     const configTable = [
@@ -107,7 +62,10 @@ export default function Users() {
         },
         onClick: () => {
             console.log('teste');
-            setLayout({ ...layout, modal: { show: true, action: "CreateUser" } });
+            setLayout({
+                ...layout,
+                modal: { show: true, action: 'CreateUser' }
+            });
         }
     };
 
@@ -126,12 +84,12 @@ export default function Users() {
             <Summary data={users} page="users" />
             <div className={styles.containerFilters}>
                 <Search
-                    items={usersInitial}
+                    items={users}
                     findFields={['id', 'email']}
                     onFiltered={data => handlerSearch(data)}
                 />
                 <OrderBy
-                    items={usersInitial}
+                    items={users}
                     orderFields={[
                         {
                             label: 'Id',
@@ -150,7 +108,7 @@ export default function Users() {
                             value: 'PENDENTE'
                         }
                     ]}
-                    onOrder={data => handlerOrder(data)}
+                    onOrder={data => handlerSearch(data)}
                 />
             </div>
             <Table configs={configTable} data={usersFormatedInRealMoney} />
