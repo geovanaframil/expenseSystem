@@ -8,6 +8,7 @@ export const userContext = createContext(initialState);
 export function UserProvider({ children }) {
     const [users, setUsers] = useState(initialState);
     const [usersInitial, setUsersInitial] = useState(initialState);
+    const [usersAllData, setUsersAllData] = useState(initialState);
 
     function getTotalExpenseByStatus(expenses, status) {
         let result = expenses.reduce((acc, expense) => {
@@ -43,6 +44,7 @@ export function UserProvider({ children }) {
 
         setUsers(usersReduce);
         setUsersInitial(usersReduce);
+        setUsersAllData(response);
     }
 
     return (
@@ -52,6 +54,8 @@ export function UserProvider({ children }) {
                 setUsers,
                 usersInitial,
                 setUsersInitial,
+                usersAllData,
+                setUsersAllData,
                 fetchUsers
             }}
         >

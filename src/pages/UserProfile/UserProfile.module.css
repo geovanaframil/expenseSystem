@@ -1,0 +1,16 @@
+.containerUser {
+    max-width: 986px;
+    margin: 0 auto;
+    padding-top: 97px;
+}
+
+.titleData h2 {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--blue-300);
+}
+
+.line {
+    margin-top: 11px;
+    border: 1px solid #c4c4c4;
+}

@@ -1,0 +1,38 @@
+.containerForm {
+    margin-top: 47px;
+}
+
+.containerForm form {
+    display: flex;
+    gap: 10px;
+}
+
+.input,
+.inputId {
+    width: auto;
+    padding-block: 5px;
+    font-size: 16px;
+}
+
+.input:focus {
+    border-color: var(--blue-300);
+}
+
+.labelId {
+    color: rgba(0, 0, 0, 0.38);
+}
+.inputId:disabled {
+    background-color: transparent;
+    border-bottom-style: dotted;
+    color: rgba(0, 0, 0, 0.38);
+}
+
+.email > .input {
+    width: 250px;
+}
+
+.name:focus-within,
+.lastName:focus-within,
+.email:focus-within {
+    color: var(--blue-300);
+}
