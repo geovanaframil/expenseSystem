@@ -69,7 +69,8 @@ export default function Categories() {
                                 modal: {
                                     show: true,
                                     action: 'EditCategory',
-                                    categoryID: item.id
+                                    categoryID: item.id,
+                                    name: item.name
                                 }
                             })
                         }
