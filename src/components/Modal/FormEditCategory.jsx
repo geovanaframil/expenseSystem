@@ -2,22 +2,31 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
+import fetchEditCategory from "../../Services/editCategories.service";
+import { categoryContext } from "../../context/categoryContext";
 
 export default function EditCategory(props) {
-  console.log(props)
   const nameCategoryRef = useRef(null);
   const { layout, setLayout } = useContext(layoutContext);
+  const { fetchCategories } = useContext(categoryContext);
 
-  //   useEffect(() => {
-  //     getUsers();
-  //   }, []);
+  useEffect(() => {
+    if (props) {
+      nameCategoryRef.current.value = props.name;
+    }
+  }, []);
 
   function closeModal() {
     setLayout({ ...layout, modal: { open: false } });
   }
 
   async function handleSave() {
-    const body = {};
+    const body = {
+      name: nameCategoryRef.current.value,
+    };
+
+    await fetchEditCategory(body, props.categoryID);
+    fetchCategories();
   }
 
   const configSaveButton = {
