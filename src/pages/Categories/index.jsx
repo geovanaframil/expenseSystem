@@ -88,6 +88,20 @@ export default function Categories() {
     },
   ];
 
+  const configButton = {
+    name: 'ADICIONAR CATEGORIA',
+    style: {
+        color: 'white',
+        backgroundColor: '#2196F3'
+    },
+    onClick: () => {
+        // setLayout({
+        //     ...layout,
+        //     modal: { show: true, action: 'CreateUser' }
+        // });
+    }
+};
+
   return (
     <div className={`${styles.containerCategories} container`}>
       <div className={styles.containerFilters}>
@@ -112,6 +126,9 @@ export default function Categories() {
         />
       </div>
       <Table table={"categoria"} configs={configTable} data={categories} />
+      <div className={styles.wrapperButton}>
+                <Button config={configButton} />
+            </div>
     </div>
   );
 }
