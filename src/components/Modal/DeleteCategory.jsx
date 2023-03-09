@@ -2,13 +2,20 @@ import { useContext } from "react";
 import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
+import fetchDeleteCategory from "../../Services/deleteCategory.service";
+import { categoryContext } from "../../context/categoryContext";
 
-export default function EditCategory() {
+export default function DeleteCategory(props) {
   const { layout, setLayout } = useContext(layoutContext);
+  const { fetchCategories } = useContext(categoryContext);
 
-  //   useEffect(() => {
-  //     getUsers();
-  //   }, []);
+  // useEffect(() => {
+  // }, []);
+
+  async function confirmDeletion() {
+    await fetchDeleteCategory(props.categoryID);
+    fetchCategories();
+  }
 
   function closeModal() {
     setLayout({ ...layout, modal: { open: false } });
@@ -21,6 +28,7 @@ export default function EditCategory() {
       backgroundColor: "#2196F3",
     },
     onClick: () => {
+      confirmDeletion();
       closeModal();
     },
   };
@@ -44,8 +52,11 @@ export default function EditCategory() {
           <h2>DELETAR CATEGORIA</h2>
         </div>
         <div className={styles.msgConfirmingDeletion}>
-          <p className={styles.msg}>Tem certeza que deseja deletar a categoria <span>Teste</span>?</p>
-        </div> 
+          <p className={styles.msg}>
+            Tem certeza que deseja deletar a categoria <span>{props.name}</span>
+            ?
+          </p>
+        </div>
         <div className={styles.buttons}>
           <Button config={configConfirmButton} />
           <Button config={configCancelButton} />
