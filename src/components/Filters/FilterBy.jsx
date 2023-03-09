@@ -9,19 +9,20 @@ export default function FilterBy({
 }) {
     function handleSelectChange(e) {
         const selected = e.target.value;
-        if (selected === '') {
-            onSorted(null);
-        }
 
-        let itemsMaped = items.map(item => {
-            const show = findFields.some(field => {
-                return String(item[field].toLowerCase()).includes(
-                    term.toLowerCase()
-                );
+        let itemsMaped = items;
+
+        if (findFields) {
+            itemsMaped = items.map(item => {
+                const show = findFields.some(field => {
+                    return String(item[field])
+                        .toLowerCase()
+                        .includes(term.toLowerCase());
+                });
+
+                return { ...item, show };
             });
-
-            return { ...item, show };
-        });
+        }
 
         if (selected !== '') {
             itemsMaped = itemsMaped.map(item => {
