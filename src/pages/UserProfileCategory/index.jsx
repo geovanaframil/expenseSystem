@@ -12,6 +12,7 @@ export default function UserProfileCategory() {
     const { userId, categoriaId } = useParams();
     const { currentUser, fetchUser } = useContext(userContext);
     const [expenses, setExpenses] = useState([]);
+    const [expensesInitial, setExpensesInitial] = useState([]);
 
     function userCategoriesMap() {
         const categoryFilter = currentUser._categories.filter(category => {
@@ -22,6 +23,7 @@ export default function UserProfileCategory() {
             const currentExpense = expenses._expenses.map(expense => {
                 return {
                     userID: expense.userID,
+                    name: expense.name,
                     category: expense['_category'].name,
                     id: expense.id,
                     amount: expense.amount,
@@ -42,8 +44,8 @@ export default function UserProfileCategory() {
 
     useEffect(() => {
         const currentExpenses = userCategoriesMap();
-        console.log(currentExpenses);
         setExpenses(currentExpenses);
+        setExpensesInitial(currentExpenses);
     }, [currentUser]);
 
     function handlerSearch(data) {
@@ -62,7 +64,7 @@ export default function UserProfileCategory() {
         {
             label: 'Valor',
             key: 'amount',
-            style : 'red'
+            style: 'red'
         },
         {
             label: 'Status',
@@ -75,8 +77,8 @@ export default function UserProfileCategory() {
                 <div className="buttonsWrapper">
                     <Button
                         config={configButtonEdit}
-                        onClick={() =>
-                            {}
+                        onClick={
+                            () => {}
                             // setLayout({
                             //     ...layout,
                             //     modal: {
@@ -109,21 +111,21 @@ export default function UserProfileCategory() {
     ];
 
     const configButtonEdit = {
-        name: "EDITAR",
+        name: 'EDITAR',
         style: {
-          color: "white",
-          backgroundColor: "#2196F3",
-        },
-      };
-    
-      const configButtonDelete = {
-        name: "EXCLUIR",
+            color: 'white',
+            backgroundColor: '#2196F3'
+        }
+    };
+
+    const configButtonDelete = {
+        name: 'EXCLUIR',
         style: {
-          color: "#D32F2F",
-          backgroundColor: "white",
-          border: "1px solid #D32F2F80",
-        },
-      };
+            color: '#D32F2F',
+            backgroundColor: 'white',
+            border: '1px solid #D32F2F80'
+        }
+    };
 
     return (
         <div className={`${styles.containerUser}`}>
@@ -154,7 +156,7 @@ export default function UserProfileCategory() {
                     onOrder={data => handlerSearch(data)}
                 />
                 <FilterBy
-                    items={expenses}
+                    items={expensesInitial}
                     sortFields={[
                         {
                             label: 'Pago',
@@ -167,7 +169,6 @@ export default function UserProfileCategory() {
                             key: 'status'
                         }
                     ]}
-                    findFields={['id', 'email']}
                     onSorted={data => handlerSearch(data)}
                 />
             </div>
