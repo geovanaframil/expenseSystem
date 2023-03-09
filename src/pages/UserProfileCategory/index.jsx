@@ -50,6 +50,7 @@ export default function UserProfileCategory() {
                 </h2>
             </div>
             <div className={styles.line}></div>
+            <Summary data={expenses} page="userProfileCategory" />
         </div>
     );
 }
