@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import Button from '../../../components/Button';
+import { userContext } from '../../../context/userContext';
+import updateUser from '../../../Services/updateUser.service';
 import styles from './Form.module.css';
 
 export default function Form({ user }) {
+    const { fetchUser } = useContext(userContext);
     const idRef = useRef(null);
     const nameRef = useRef(null);
     const lastNameRef = useRef(null);
@@ -17,14 +20,17 @@ export default function Form({ user }) {
         }
     }, [user]);
 
-    function handleSave() {
+    async function handleSave() {
+        const id = user.id;
         const body = {
             name: nameRef.current.value,
             lastName: lastNameRef.current.value,
             email: emailRef.current.value
         };
 
-        return body;
+        await updateUser(body, id);
+
+        fetchUser(id);
     }
 
     const configEditButton = {
@@ -35,7 +41,7 @@ export default function Form({ user }) {
             marginTop: 0
         },
         onClick: () => {
-            console.log(handleSave());
+            handleSave();
         }
     };
 
