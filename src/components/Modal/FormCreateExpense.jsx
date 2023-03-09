@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Modal.module.css";
 import getAllCategories from "../../Services/categories.service";
-import getAllUsers from "../../Services/allUsers.service";
+import {getAllUsers} from "../../Services/allUsers.service";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
 import addNewExpense from "../../Services/addNewExpense.service";

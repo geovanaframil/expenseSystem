@@ -2,9 +2,11 @@
     max-width: 986px;
     margin: 0 auto;
     padding-top: 97px;
+    padding-bottom: 200px;
 }
 
-.titleData h2, .titleExpenses h2 {
+.titleData h2,
+.titleExpenses h2 {
     font-weight: 700;
     font-size: 24px;
     color: var(--blue-300);
@@ -17,4 +19,12 @@
 
 .titleExpenses {
     margin-top: 106px;
+}
+
+.containerFilters {
+    margin-top: 90px;
+}
+
+.wrapperButton {
+    text-align: end;
 }

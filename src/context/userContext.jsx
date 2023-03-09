@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import getAllUsers from '../Services/allUsers.service';
+import { getUser, getAllUsers } from '../Services/allUsers.service';
 
 const initialState = [];
 
@@ -9,6 +9,10 @@ export function UserProvider({ children }) {
     const [users, setUsers] = useState(initialState);
     const [usersInitial, setUsersInitial] = useState(initialState);
     const [usersAllData, setUsersAllData] = useState(initialState);
+    const [currentUser, setCurrentUser] = useState({
+        _expenses: [],
+        _categories: []
+    });
 
     function getTotalExpenseByStatus(expenses, status) {
         let result = expenses.reduce((acc, expense) => {
@@ -47,6 +51,12 @@ export function UserProvider({ children }) {
         setUsersAllData(response);
     }
 
+    async function fetchUser(id) {
+        let response = await getUser(id);
+
+        setCurrentUser(response);
+    }
+
     return (
         <userContext.Provider
             value={{
@@ -57,6 +67,9 @@ export function UserProvider({ children }) {
                 usersAllData,
                 setUsersAllData,
                 fetchUsers,
+                fetchUser,
+                currentUser,
+                setCurrentUser,
                 getTotalExpenseByStatus
             }}
         >

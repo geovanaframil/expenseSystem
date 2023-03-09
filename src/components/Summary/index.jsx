@@ -7,8 +7,9 @@ function Summary({ data, page }) {
     let totalPaid = 0;
 
     const dataShowed = data.filter(item => item.show === true);
+    
    
-    if (page === 'expenses' || page === 'userProfile') {
+    if (page === 'expenses' ) {
         totalExpenses = dataShowed.reduce((acc, atual) => {
             return acc + atual.amount;
         }, 0);
@@ -21,7 +22,7 @@ function Summary({ data, page }) {
             return acc + atual.amount;
         }, 0);
     }
-    if (page === 'users') {
+    if (page === 'users' || page === 'userProfile') {
         totalExpenses = dataShowed.reduce((acc, atual) => {
             return acc + atual.PENDENTE;
         }, 0);

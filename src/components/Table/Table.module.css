@@ -8,8 +8,6 @@
     border-collapse: collapse;
 }
 
-
-
 .table thead {
     background: #f3f6f9;
 }
@@ -34,7 +32,8 @@
 .green {
     color: var(--green-300);
 }
-td[attr-key='email'] {
+td[attr-key='email'],
+td[attr-key='nameCategory'] {
     cursor: pointer;
 }
 td[attr-value='PAGO'] {
