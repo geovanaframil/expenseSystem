@@ -59,7 +59,7 @@ export default function UserProfile() {
             key: 'nameCategory',
             style: 'blue',
             onClick: user => {
-                navigate(`/usuario/${userId}/categoria/${user.nameCategory}`);
+                navigate(`/usuarios/${userId}/categoria/${user.nameCategory}`);
             }
         },
         {

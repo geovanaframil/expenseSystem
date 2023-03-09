@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Categories from './pages/Categories';
 import Expenses from './pages/Expenses';
 import UserProfile from './pages/UserProfile';
+import UserProfileCategory from './pages/UserProfileCategory';
 import Users from './pages/Users';
 
 export function Router() {
@@ -11,7 +12,7 @@ export function Router() {
             <Route path="/despesas" element={<Expenses />} />
             <Route path="/usuarios" element={<Users />} />
             <Route path="/usuarios/:userId" element={<UserProfile />} />
-            <Route path="/usuarios/:userId/categoria/:categoriaId" element={<Users />} />
+            <Route path="/usuarios/:userId/categoria/:categoriaId" element={<UserProfileCategory />} />
             <Route path="/categorias" element={<Categories />} />
             
         </Routes>
