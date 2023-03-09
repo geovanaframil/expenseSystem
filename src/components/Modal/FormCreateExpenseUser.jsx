@@ -4,7 +4,7 @@ import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
 import getAllCategories from "../../Services/categories.service";
 import addNewExpense from "../../Services/addNewExpense.service";
-import { expenseContext } from "../../context/expenseContext";
+import { userContext } from "../../context/userContext";
 
 export default function FormCreateExpenseUser() {
   const nameRef = useRef(null);
@@ -13,7 +13,7 @@ export default function FormCreateExpenseUser() {
   const nameUserRef = useRef(null);
   const { layout, setLayout } = useContext(layoutContext);
   const [categories, setCategories] = useState([]);
-  const { fetchExpenses } = useContext(expenseContext);
+  const { fetchUser } = useContext(userContext);
 
   async function getCategories() {
     const data = await getAllCategories();
@@ -41,7 +41,7 @@ export default function FormCreateExpenseUser() {
     };
 
     await addNewExpense(body);
-    fetchExpenses();
+    fetchUser(layout.modal.user.id);
   }
 
   const configSaveButton = {
