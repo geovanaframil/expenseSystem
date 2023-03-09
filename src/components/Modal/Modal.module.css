@@ -86,3 +86,10 @@ input {
 .msg span {
   color: var(--blue-300);
 }
+
+.nameCategory {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60.48px;
+  margin-bottom: 90px;
+}
