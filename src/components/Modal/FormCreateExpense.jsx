@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Modal.module.css';
 import getAllCategories from '../../Services/categories.service';
 import { getAllUsers } from '../../Services/allUsers.service';
@@ -8,24 +8,27 @@ import addNewExpense from '../../Services/addNewExpense.service';
 import { expenseContext } from '../../context/expenseContext';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
+import { useForm } from 'react-hook-form';
 
 export default function FormCreateExpense() {
-    const nameRef = useRef(null);
-    const categoryRef = useRef(null);
-    const userRef = useRef(null);
-    const amountRef = useRef(null);
     const { layout, setLayout } = useContext(layoutContext);
     const { fetchExpenses } = useContext(expenseContext);
     const [categories, setCategories] = useState([]);
     const [users, setUsers] = useState([]);
 
-    const notyf = new Notyf({
-        ripple: false,
-        position: {
-            x: 'right',
-            y: 'top'
-        }
-    });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
+
+    // const notyf = new Notyf({
+    //     ripple: false,
+    //     position: {
+    //         x: 'right',
+    //         y: 'top'
+    //     }
+    // });
 
     async function getCategories() {
         const data = await getAllCategories();
@@ -46,19 +49,18 @@ export default function FormCreateExpense() {
         setLayout({ ...layout, modal: { open: false } });
     }
 
-    async function handleSave() {
-        // const body = {
-        //     name: nameRef.current.value,
-        //     categoryID: categoryRef.current.value,
-        //     userID: userRef.current.value,
-        //     amount: Number(amountRef.current.value),
-        //     status: 'PENDENTE'
-        // };
+    async function handleSave(data) {
+        const body = {
+            ...data,
+            status: 'PENDENTE',
+            amount: parseInt(data.amount)
+        };
 
-        notyf.success('Despesa criada com sucesso!');
+        await addNewExpense(body);
+        fetchExpenses();
 
-        // addNewExpense(body);
-        // fetchExpenses();
+        // notyf.success('Despesa criada com sucesso!');
+        closeModal();
     }
 
     const configSaveButton = {
@@ -67,10 +69,8 @@ export default function FormCreateExpense() {
             color: 'white',
             backgroundColor: '#2196F3'
         },
-        onClick: () => {
-            handleSave();
-            closeModal();
-        }
+        type: 'blue',
+        onClick: () => {}
     };
 
     const configCancelButton = {
@@ -80,6 +80,7 @@ export default function FormCreateExpense() {
             backgroundColor: 'transparent',
             border: '1px solid #D32F2F'
         },
+        type: 'red',
         onClick: () => {
             closeModal();
         }
@@ -87,18 +88,27 @@ export default function FormCreateExpense() {
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit(handleSave)}>
                 <div className={styles.titleModal}>
                     <h2>ADICIONAR DESPESA</h2>
                 </div>
                 <div className={styles.fields}>
-                    <div>
-                        <label>Nome</label>
-                        <input type="text" ref={nameRef} />
+                    <div className={styles.boxField}>
+                        <label htmlFor="name">Nome</label>
+                        <input
+                            id="name"
+                            type="text"
+                            {...register('name', { required: true })}
+                        />
+                        {errors.name && (
+                            <span className={styles.message_error}>
+                                Insira o nome da despesa
+                            </span>
+                        )}
                     </div>
-                    <div className={styles.categoryId}>
+                    <div className={styles.boxField}>
                         <label>Categoria</label>
-                        <select ref={categoryRef}>
+                        <select {...register('categoryID', { required: true })}>
                             <option></option>
                             {categories.map(category => {
                                 return (
@@ -111,10 +121,15 @@ export default function FormCreateExpense() {
                                 );
                             })}
                         </select>
+                        {errors.categoryID && (
+                            <span className={styles.message_error}>
+                                Selecione uma categoria
+                            </span>
+                        )}
                     </div>
-                    <div className={styles.inputUser}>
+                    <div className={styles.boxField}>
                         <label>Usuário</label>
-                        <select ref={userRef}>
+                        <select {...register('userID', { required: true })}>
                             <option></option>
                             {users.map(user => {
                                 return (
@@ -124,10 +139,23 @@ export default function FormCreateExpense() {
                                 );
                             })}
                         </select>
+                        {errors.userID && (
+                            <span className={styles.message_error}>
+                                Selecione um usuário
+                            </span>
+                        )}
                     </div>
-                    <div className={styles.value}>
+                    <div className={styles.boxField}>
                         <label>Valor</label>
-                        <input type="text" ref={amountRef} />
+                        <input
+                            type="text"
+                            {...register('amount', { required: true })}
+                        />
+                        {errors.amount && (
+                            <span className={styles.message_error}>
+                                Insira o valor
+                            </span>
+                        )}
                     </div>
                 </div>
                 <div className={styles.buttons}>
