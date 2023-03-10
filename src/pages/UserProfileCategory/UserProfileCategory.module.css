@@ -25,3 +25,9 @@
 .containerFilters div select{
     max-width: 214px;
 }
+
+.wrapperButton {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: end;
+}

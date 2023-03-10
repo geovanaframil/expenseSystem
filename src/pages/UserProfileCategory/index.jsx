@@ -127,6 +127,20 @@ export default function UserProfileCategory() {
         }
     };
 
+    const configButtonAddExpense = {
+        name: 'ADICIONAR DESPESA',
+        style: {
+            color: 'white',
+            backgroundColor: '#2196F3'
+        },
+        onClick: () => {
+            // setLayout({
+            //     ...layout,
+            //     modal: { show: true, action: 'CreateUser' }
+            // });
+        }
+    };
+
     return (
         <div className={`${styles.containerUser}`}>
             <div className={styles.titleData}>
@@ -173,6 +187,9 @@ export default function UserProfileCategory() {
                 />
             </div>
             <Table table={'category'} configs={configTable} data={expenses} />
+            <div className={styles.wrapperButton}>
+                <Button config={configButtonAddExpense} />
+            </div>
         </div>
     );
 }
