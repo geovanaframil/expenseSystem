@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext} from 'react';
 import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
@@ -14,9 +14,7 @@ export default function FormCreateUser() {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm({
-        mode: 'onChange'
-    });
+    } = useForm();
 
     function closeModal() {
         setLayout({ ...layout, modal: { open: false } });

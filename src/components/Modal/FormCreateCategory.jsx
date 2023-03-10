@@ -1,70 +1,80 @@
-import { useContext, useRef } from "react";
-import styles from "./Modal.module.css";
-import Button from "../Button";
-import { layoutContext } from "../../context/layoutContext";
-import addNewCategory from "../../Services/addNewCategory.service";
-import { categoryContext } from "../../context/categoryContext";
+import { useContext } from 'react';
+import styles from './Modal.module.css';
+import Button from '../Button';
+import { layoutContext } from '../../context/layoutContext';
+import addNewCategory from '../../Services/addNewCategory.service';
+import { categoryContext } from '../../context/categoryContext';
+import { useForm } from 'react-hook-form';
 
 export default function FormCreateCategory() {
-  const nameRef = useRef(null);
-  const { layout, setLayout } = useContext(layoutContext);
-  const { fetchCategories } = useContext(categoryContext)
+    const { layout, setLayout } = useContext(layoutContext);
+    const { fetchCategories } = useContext(categoryContext);
 
-  function closeModal() {
-    setLayout({ ...layout, modal: { open: false } });
-  }
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
 
-  async function handleSave() {
-    const body = {
-      name: nameRef.current.value,
+    function closeModal() {
+        setLayout({ ...layout, modal: { open: false } });
+    }
+
+    async function handleSave(data) {
+        await addNewCategory(data);
+        fetchCategories();
+        closeModal();
+    }
+
+    const configSaveButton = {
+        name: 'SALVAR',
+        style: {
+            color: 'white',
+            backgroundColor: '#2196F3'
+        },
+        type: 'blue',
+        onClick: () => {}
     };
-    await addNewCategory(body);
-    fetchCategories();
-  }
 
-  const configSaveButton = {
-    name: "SALVAR",
-    style: {
-      color: "white",
-      backgroundColor: "#2196F3",
-    },
-    type: 'blue',
-    onClick: () => {
-      handleSave();
-      closeModal();
-    },
-  };
+    const configCancelButton = {
+        name: 'CANCELAR',
+        style: {
+            color: '#D32F2F',
+            backgroundColor: 'transparent',
+            border: '1px solid #D32F2F'
+        },
+        type: 'red',
+        onClick: () => {
+            closeModal();
+        }
+    };
 
-  const configCancelButton = {
-    name: "CANCELAR",
-    style: {
-      color: "#D32F2F",
-      backgroundColor: "transparent",
-      border: "1px solid #D32F2F",
-    },
-    type: 'red',
-    onClick: () => {
-      closeModal();
-    },
-  };
-
-  return (
-    <div>
-      <form>
-        <div className={styles.titleModal}>
-          <h2>ADICIONAR CATEGORIA</h2>
+    return (
+        <div>
+            <form onSubmit={handleSubmit(handleSave)}>
+                <div className={styles.titleModal}>
+                    <h2>ADICIONAR CATEGORIA</h2>
+                </div>
+                <div className={styles.fields}>
+                    <div className={styles.boxField}>
+                        <label>Nome</label>
+                        <input
+                            className={errors?.name ? styles['error'] : ''}
+                            type="text"
+                            {...register('name', { required: true })}
+                        />
+                        {errors.name && (
+                            <span className={styles.message_error}>
+                                Insira o nome da categoria
+                            </span>
+                        )}
+                    </div>
+                </div>
+                <div className={styles.buttons}>
+                    <Button config={configSaveButton} />
+                    <Button config={configCancelButton} />
+                </div>
+            </form>
         </div>
-        <div className={styles.fields}>
-          <div className={styles.nameCategory}>
-            <label>Nome</label>
-            <input type="text" ref={nameRef} />
-          </div>
-        </div>
-        <div className={styles.buttons}>
-          <Button config={configSaveButton} />
-          <Button config={configCancelButton} />
-        </div>
-      </form>
-    </div>
-  );
+    );
 }
