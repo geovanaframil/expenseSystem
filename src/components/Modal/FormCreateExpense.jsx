@@ -9,6 +9,7 @@ import { expenseContext } from '../../context/expenseContext';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import { useForm } from 'react-hook-form';
+import { maskMoney } from '../../utils/maskMoney';
 
 export default function FormCreateExpense() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -53,7 +54,7 @@ export default function FormCreateExpense() {
         const body = {
             ...data,
             status: 'PENDENTE',
-            amount: parseInt(data.amount)
+            amount: Number(data.amount.replace(/\D/g, '')) / 100
         };
 
         await addNewExpense(body);
@@ -149,7 +150,10 @@ export default function FormCreateExpense() {
                         <label>Valor</label>
                         <input
                             type="text"
-                            {...register('amount', { required: true })}
+                            {...register('amount', {
+                                required: true,
+                                onChange: e => maskMoney(e)
+                            })}
                         />
                         {errors.amount && (
                             <span className={styles.message_error}>
