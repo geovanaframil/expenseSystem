@@ -118,3 +118,7 @@ form select:focus {
     font-weight: 500;
     margin-top: 3px;
 }
+
+.error {
+    border-color: red !important;
+}

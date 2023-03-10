@@ -1,30 +1,31 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
 import addNewUser from '../../Services/addNewUser.service';
 import { userContext } from '../../context/userContext';
+import { useForm } from 'react-hook-form';
 
 export default function FormCreateUser() {
-    const nameRef = useRef(null);
-    const lastNameRef = useRef(null);
-    const emailRef = useRef(null);
     const { layout, setLayout } = useContext(layoutContext);
     const { fetchUsers } = useContext(userContext);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        mode: 'onChange'
+    });
 
     function closeModal() {
         setLayout({ ...layout, modal: { open: false } });
     }
 
-    async function handleSave() {
-        const body = {
-            name: nameRef.current.value,
-            lastName: lastNameRef.current.value,
-            email: emailRef.current.value
-        };
-
-        addNewUser(body);
+    async function handleSave(data) {
+        await addNewUser(data);
         fetchUsers();
+        closeModal();
     }
 
     const configSaveButton = {
@@ -34,10 +35,7 @@ export default function FormCreateUser() {
             backgroundColor: '#2196F3'
         },
         type: 'blue',
-        onClick: () => {
-            handleSave();
-            closeModal();
-        }
+        onClick: () => {}
     };
 
     const configCancelButton = {
@@ -55,22 +53,58 @@ export default function FormCreateUser() {
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit(handleSave)}>
                 <div className={styles.titleModal}>
                     <h2>ADICIONAR USUÁRIO</h2>
                 </div>
                 <div className={styles.fields}>
-                    <div>
+                    <div className={styles.boxField}>
                         <label>Nome</label>
-                        <input type="text" ref={nameRef} />
+                        <input
+                            className={errors?.name ? styles['error'] : ''}
+                            type="text"
+                            {...register('name', { required: true })}
+                        />
+                        {errors.name && (
+                            <span className={styles.message_error}>
+                                Insira o nome
+                            </span>
+                        )}
                     </div>
-                    <div className={styles.lastName}>
+                    <div className={styles.boxField}>
                         <label>Sobrenome</label>
-                        <input type="text" ref={lastNameRef} />
+                        <input
+                            className={errors?.lastName ? styles['error'] : ''}
+                            type="text"
+                            {...register('lastName', { required: true })}
+                        />
+                        {errors.lastName && (
+                            <span className={styles.message_error}>
+                                Insira o sobrenome
+                            </span>
+                        )}
                     </div>
-                    <div className={styles.email}>
+                    <div className={styles.boxField}>
                         <label>Email</label>
-                        <input type="email" ref={emailRef} />
+                        <input
+                            className={errors?.email ? styles['error'] : ''}
+                            type="email"
+                            {...register('email', {
+                                required: {
+                                    value: true,
+                                    message: 'Insira um e-mail'
+                                },
+                                pattern: {
+                                    value: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
+                                    message: 'Insira um e-mail válido'
+                                }
+                            })}
+                        />
+                        {errors.email && (
+                            <span className={styles.message_error}>
+                                {errors.email.message}
+                            </span>
+                        )}
                     </div>
                 </div>
                 <div className={styles.buttons}>
