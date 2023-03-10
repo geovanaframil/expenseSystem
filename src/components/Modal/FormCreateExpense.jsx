@@ -57,11 +57,12 @@ export default function FormCreateExpense() {
             amount: Number(data.amount.replace(/\D/g, '')) / 100
         };
 
-        await addNewExpense(body);
-        fetchExpenses();
+        console.log(data);
+        // await addNewExpense(body);
+        // fetchExpenses();
 
         // notyf.success('Despesa criada com sucesso!');
-        closeModal();
+        // closeModal();
     }
 
     const configSaveButton = {
@@ -152,6 +153,8 @@ export default function FormCreateExpense() {
                             type="text"
                             {...register('amount', {
                                 required: true,
+                                validate: (value, formValues) =>
+                                    Number(value.replace(/\D/g, '')) >= 1,
                                 onChange: e => maskMoney(e)
                             })}
                         />
