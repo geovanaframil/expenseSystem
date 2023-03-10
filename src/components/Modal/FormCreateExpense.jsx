@@ -57,12 +57,11 @@ export default function FormCreateExpense() {
             amount: Number(data.amount.replace(/\D/g, '')) / 100
         };
 
-        console.log(data);
-        // await addNewExpense(body);
-        // fetchExpenses();
+        await addNewExpense(body);
+        fetchExpenses();
 
         // notyf.success('Despesa criada com sucesso!');
-        // closeModal();
+        closeModal();
     }
 
     const configSaveButton = {
@@ -98,6 +97,7 @@ export default function FormCreateExpense() {
                     <div className={styles.boxField}>
                         <label htmlFor="name">Nome</label>
                         <input
+                            className={errors?.name ? styles['error'] : ''}
                             id="name"
                             type="text"
                             {...register('name', { required: true })}
@@ -110,7 +110,12 @@ export default function FormCreateExpense() {
                     </div>
                     <div className={styles.boxField}>
                         <label>Categoria</label>
-                        <select {...register('categoryID', { required: true })}>
+                        <select
+                            className={
+                                errors?.categoryID ? styles['error'] : ''
+                            }
+                            {...register('categoryID', { required: true })}
+                        >
                             <option></option>
                             {categories.map(category => {
                                 return (
@@ -131,7 +136,10 @@ export default function FormCreateExpense() {
                     </div>
                     <div className={styles.boxField}>
                         <label>Usuário</label>
-                        <select {...register('userID', { required: true })}>
+                        <select
+                            className={errors?.userID ? styles['error'] : ''}
+                            {...register('userID', { required: true })}
+                        >
                             <option></option>
                             {users.map(user => {
                                 return (
@@ -150,6 +158,7 @@ export default function FormCreateExpense() {
                     <div className={styles.boxField}>
                         <label>Valor</label>
                         <input
+                            className={errors?.amount ? styles['error'] : ''}
                             type="text"
                             {...register('amount', {
                                 required: true,
