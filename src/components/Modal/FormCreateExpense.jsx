@@ -23,13 +23,13 @@ export default function FormCreateExpense() {
         formState: { errors }
     } = useForm();
 
-    // const notyf = new Notyf({
-    //     ripple: false,
-    //     position: {
-    //         x: 'right',
-    //         y: 'top'
-    //     }
-    // });
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
 
     async function getCategories() {
         const data = await getAllCategories();
@@ -60,7 +60,7 @@ export default function FormCreateExpense() {
         await addNewExpense(body);
         fetchExpenses();
 
-        // notyf.success('Despesa criada com sucesso!');
+        notyf.success('Despesa criada com sucesso!');
         closeModal();
     }
 
