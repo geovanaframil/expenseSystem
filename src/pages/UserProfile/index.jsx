@@ -79,6 +79,7 @@ export default function UserProfile() {
       color: "white",
       backgroundColor: "#2196F3",
     },
+    type: 'blue',
     onClick: () => {
       setLayout({
         ...layout,

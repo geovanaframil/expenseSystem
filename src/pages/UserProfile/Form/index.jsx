@@ -40,6 +40,7 @@ export default function Form({ user }) {
             backgroundColor: '#2196F3',
             marginTop: 0
         },
+        type: 'blue',
         onClick: () => {
             handleSave();
         }

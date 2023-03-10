@@ -30,6 +30,7 @@ export default function Categories() {
       color: "white",
       backgroundColor: "#2196F3",
     },
+    type: 'blue',
   };
 
   const configButtonDelete = {
@@ -39,6 +40,7 @@ export default function Categories() {
       backgroundColor: "white",
       border: "1px solid #D32F2F80",
     },
+    type: 'red',
   };
 
   const configTable = [

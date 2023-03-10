@@ -35,6 +35,7 @@ export default function EditCategory(props) {
       color: "white",
       backgroundColor: "#2196F3",
     },
+    type: 'blue',
     onClick: () => {
       handleSave();
       closeModal();
@@ -48,6 +49,7 @@ export default function EditCategory(props) {
       backgroundColor: "transparent",
       border: "1px solid #D32F2F",
     },
+    type: 'red',
     onClick: () => {
       closeModal();
     },

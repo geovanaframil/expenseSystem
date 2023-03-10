@@ -59,6 +59,7 @@ export default function Users() {
             color: 'white',
             backgroundColor: '#2196F3'
         },
+        type: 'blue',
         onClick: () => {
             setLayout({
                 ...layout,

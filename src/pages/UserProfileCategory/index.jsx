@@ -115,7 +115,8 @@ export default function UserProfileCategory() {
         style: {
             color: 'white',
             backgroundColor: '#2196F3'
-        }
+        },
+        type: 'blue'
     };
 
     const configButtonDelete = {
@@ -124,7 +125,8 @@ export default function UserProfileCategory() {
             color: '#D32F2F',
             backgroundColor: 'white',
             border: '1px solid #D32F2F80'
-        }
+        },
+        type: 'red'
     };
 
     const configButtonAddExpense = {

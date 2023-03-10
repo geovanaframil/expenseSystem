@@ -39,10 +39,15 @@ body {
     margin-top: 0 !important;
 }
 
-.buttonsWrapper button:last-of-type:hover {
+.buttonsWrapper button:last-of-type:hover,
+.buttonRed:hover {
     transition: 0.3s !important;
     background: var(--red-600) !important;
     color: var(--white) !important;
+}
+.buttonBlue:hover {
+    transition: 0.3s !important;
+    background-color: var(--blue-600) !important;
 }
 
 .table_fixed {
@@ -51,4 +56,12 @@ body {
 
 input {
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87);
+}
+label {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
 }

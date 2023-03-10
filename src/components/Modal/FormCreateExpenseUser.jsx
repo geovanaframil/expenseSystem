@@ -50,6 +50,7 @@ export default function FormCreateExpenseUser() {
       color: "white",
       backgroundColor: "#2196F3",
     },
+    type: 'blue',
     onClick: () => {
       handleSave();
       closeModal();
@@ -63,6 +64,7 @@ export default function FormCreateExpenseUser() {
       backgroundColor: "transparent",
       border: "1px solid #D32F2F",
     },
+    type: 'red',
     onClick: () => {
       closeModal();
     },

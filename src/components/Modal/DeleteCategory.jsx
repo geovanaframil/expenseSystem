@@ -27,6 +27,7 @@ export default function DeleteCategory(props) {
       color: "white",
       backgroundColor: "#2196F3",
     },
+    type:'blue',
     onClick: () => {
       confirmDeletion();
       closeModal();
@@ -40,6 +41,7 @@ export default function DeleteCategory(props) {
       backgroundColor: "transparent",
       border: "1px solid #D32F2F",
     },
+    type: 'red',
     onClick: () => {
       closeModal();
     },
