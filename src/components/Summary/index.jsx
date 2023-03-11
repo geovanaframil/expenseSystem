@@ -3,26 +3,31 @@ import styles from './Summary.module.css';
 
 function Summary({ data, page }) {
     let totalExpenses = 0;
-    let expensesPaid = 0;
+    let totalNoPaid = 0;
     let totalPaid = 0;
 
     const dataShowed = data.filter(item => item.show === true);
 
     if (page === 'expenses' || page === 'userProfileCategory') {
-        totalExpenses = dataShowed.reduce((acc, atual) => {
-            return acc + atual.amount;
-        }, 0);
-
-        expensesPaid = dataShowed.filter(expense => {
+        let usersPaid = dataShowed.filter(expense => {
             return expense.status === 'PAGO';
         });
 
-        totalPaid = expensesPaid.reduce((acc, atual) => {
+        totalPaid = usersPaid.reduce((acc, atual) => {
+            return acc + atual.amount;
+        }, 0);
+
+        let usersNoPaid = dataShowed.filter(expense => {
+            return expense.status === 'PENDENTE';
+        });
+
+        totalNoPaid = usersNoPaid.reduce((acc, atual) => {
             return acc + atual.amount;
         }, 0);
     }
+
     if (page === 'users' || page === 'userProfile') {
-        totalExpenses = dataShowed.reduce((acc, atual) => {
+        totalNoPaid = dataShowed.reduce((acc, atual) => {
             return acc + atual.PENDENTE;
         }, 0);
 
@@ -40,7 +45,7 @@ function Summary({ data, page }) {
             </div>
             <div className={styles.totalExpenses}>
                 <p>TOTAL DESPESAS</p>
-                <p>{formatPrice(totalExpenses)}</p>
+                <p>{formatPrice(totalNoPaid)}</p>
                 <hr className={styles.red}></hr>
             </div>
         </div>
