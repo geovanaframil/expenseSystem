@@ -8,6 +8,8 @@ export default function Breadcrumb() {
 
     const crumbs = location.pathname.split('/').filter(crumb => crumb !== '');
 
+    const crumbsDecoded = crumbs.map(crumb => decodeURI(crumb));
+
     function firstLetterUppercase(phrase) {
         return phrase.charAt(0).toUpperCase() + phrase.slice(1);
     }
@@ -15,7 +17,7 @@ export default function Breadcrumb() {
     return (
         <div className={styles.container}>
             <div className={`${styles.wrapper} container`}>
-                {crumbs.map(crumb => {
+                {crumbsDecoded.map(crumb => {
                     currentLink += `/${crumb}`;
 
                     return (
