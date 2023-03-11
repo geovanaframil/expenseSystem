@@ -54,7 +54,8 @@ body {
     table-layout: fixed !important;
 }
 
-input {
+input,
+select {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: rgba(0, 0, 0, 0.87);

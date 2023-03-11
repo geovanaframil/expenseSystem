@@ -30,17 +30,18 @@ export default function FormEditExpenseUser() {
     setLayout({ ...layout, modal: { open: false } });
   }
 
-  async function handleSave() {
-    const body = {
-      name: layout.modal.name,
-      categoryID: layout.modal.categoryID,
-      userID: layout.modal.userID,
-      amount: Number(amountRef.current.value),
-      status: statusRef.current.value,
-    };
-    // console.log(body);
-    await fetchEditExpense(body, layout.modal.categoryID);
-    //     fetchUser(layout.modal.user.id);
+  async function handleSave(data) {
+    // const body = {
+    //   name: layout.modal.name,
+    //   categoryID: layout.modal.categoryID,
+    //   userID: layout.modal.userID,
+    //   amount: Number(amountRef.current.value),
+    //   status: statusRef.current.value,
+    // };
+
+    // await fetchEditExpense(body, layout.modal.categoryID);
+ 
+    // closeModal();
   }
 
   const configSaveButton = {
@@ -52,7 +53,7 @@ export default function FormEditExpenseUser() {
     type: "blue",
     onClick: () => {
       handleSave();
-      closeModal();
+   
     },
   };
 
