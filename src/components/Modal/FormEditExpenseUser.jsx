@@ -7,7 +7,8 @@ import fetchEditExpense from "../../Services/editExpense.service";
 
 export default function FormEditExpenseUser() {
   const { layout, setLayout } = useContext(layoutContext);
-  const idUserRef = useRef(null);
+  const idExpenseRef = useRef(null);
+  const nameCategoryRef = useRef(null);
   const amountRef = useRef(null);
   const statusRef = useRef(null);
   //   const { fetchUser } = useContext(userContext);
@@ -17,12 +18,13 @@ export default function FormEditExpenseUser() {
   //     setCategories(data);
   //   }
 
-    useEffect(() => {
+  useEffect(() => {
     //   getCategories();
-      if (layout) {
-        idUserRef.current.value = `${layout.modal.userID}`;
-      }
-    }, []);
+    if (layout) {
+      idExpenseRef.current.value = `${layout.modal.categoryID}`;
+      nameCategoryRef.current.value = `${layout.modal.name}`;
+    }
+  }, []);
 
   function closeModal() {
     setLayout({ ...layout, modal: { open: false } });
@@ -36,8 +38,8 @@ export default function FormEditExpenseUser() {
       amount: Number(amountRef.current.value),
       status: statusRef.current.value,
     };
-    console.log(body);
-    await fetchEditExpense(body, layout.modal.userID);
+    // console.log(body);
+    await fetchEditExpense(body, layout.modal.categoryID);
     //     fetchUser(layout.modal.user.id);
   }
 
@@ -76,11 +78,11 @@ export default function FormEditExpenseUser() {
         <div className={styles.fields}>
           <div>
             <label>ID</label>
-            <input type="text" ref={idUserRef} disabled/>
+            <input type="text" ref={idExpenseRef} disabled />
           </div>
           <div className={styles.categoryId}>
             <label>Categoria</label>
-            <input type="text" />
+            <input type="text" ref={nameCategoryRef} disabled />
           </div>
           <div className={styles.inputUser}>
             <label className={styles.labelUser}>Valor</label>

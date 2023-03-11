@@ -94,18 +94,18 @@ export default function UserProfileCategory() {
           />
           <Button
             config={configButtonDelete}
-            onClick={
-              () => {}
-              //   setLayout({
-              //     ...layout,
-              //     modal: {
-              //       show: true,
-              //       action: "DeleteCategory",
-              //       categoryID: item.id,
-              //       name: item.name,
-              //     },
-              //   })
-            }
+            onClick={() => {
+              setLayout({
+                ...layout,
+                modal: {
+                  show: true,
+                  action: "DeleteExpense",
+                  categoryID: item.id,
+                  name: item.name,
+                  userID: userId,
+                },
+              });
+            }}
           />
         </div>
       ),

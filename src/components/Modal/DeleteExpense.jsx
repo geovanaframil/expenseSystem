@@ -2,16 +2,17 @@ import { useContext } from "react";
 import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
-import fetchDeleteCategory from "../../Services/deleteCategory.service";
-import { categoryContext } from "../../context/categoryContext";
+import fetchDeleteExpense from "../../Services/deleteExpense.service";
+import { userContext } from "../../context/userContext";
 
-export default function DeleteCategory(props) {
+export default function DeleteExpense(props) {
   const { layout, setLayout } = useContext(layoutContext);
-  const { fetchCategories } = useContext(categoryContext);
+  console.log(layout)
+  const { fetchUser } = useContext(userContext);
 
   async function confirmDeletion() {
-    await fetchDeleteCategory(props.categoryID);
-    fetchCategories();
+    await fetchDeleteExpense(props.categoryID);
+    fetchUser(layout.modal.userID);
   }
 
   function closeModal() {
@@ -52,7 +53,7 @@ export default function DeleteCategory(props) {
         </div>
         <div className={styles.msgConfirmingDeletion}>
           <p className={styles.msg}>
-            Tem certeza que deseja deletar a categoria <span>{props.name}</span>
+            Tem certeza que deseja deletar a despesa <span>{props.categoryID}</span>
             ?
           </p>
         </div>

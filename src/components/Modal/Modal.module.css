@@ -122,3 +122,7 @@ form select:focus {
 .error {
     border-color: red !important;
 }
+
+input:disabled {
+    color: var(--black-50)
+}
