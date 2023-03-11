@@ -66,6 +66,11 @@ form select:focus {
 .boxField select {
     margin-top: 0;
 }
+.boxField input:disabled {
+    background: transparent;
+    color: rgba(0, 0, 0, 0.87);
+    border-bottom-color: var(--blue-300);
+}
 
 .fieldsCategory {
     display: flex;
@@ -124,5 +129,5 @@ form select:focus {
 }
 
 input:disabled {
-    color: var(--black-50)
+    color: var(--black-50);
 }
