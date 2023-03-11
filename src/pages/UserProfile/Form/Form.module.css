@@ -4,35 +4,39 @@
 
 .containerForm form {
     display: flex;
-    gap: 10px;
+    gap: 20px;
 }
 
-.input,
-.inputId {
-    width: auto;
-    padding-block: 5px;
-    font-size: 16px;
+.containerForm input {
+    width: initial;
 }
 
-.input:focus {
-    border-color: var(--blue-300);
-}
-
-.labelId {
-    color: rgba(0, 0, 0, 0.38);
-}
 .inputId:disabled {
     background-color: transparent;
     border-bottom-style: dotted;
     color: rgba(0, 0, 0, 0.38);
 }
 
-.email > .input {
+.containerForm input[type='email'] {
     width: 250px;
 }
 
-.name:focus-within,
-.lastName:focus-within,
-.email:focus-within {
+.boxField:focus-within label {
     color: var(--blue-300);
+}
+
+.message_error {
+    display: block;
+    color: red;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 3px;
+}
+
+.error {
+    border-color: red !important;
+}
+
+input:disabled {
+    color: var(--black-50);
 }

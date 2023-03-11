@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button';
 import { userContext } from '../../../context/userContext';
 import updateUser from '../../../Services/updateUser.service';
@@ -6,26 +7,29 @@ import styles from './Form.module.css';
 
 export default function Form({ user }) {
     const { fetchUser } = useContext(userContext);
-    const idRef = useRef(null);
-    const nameRef = useRef(null);
-    const lastNameRef = useRef(null);
-    const emailRef = useRef(null);
+
+    const {
+        register,
+        reset,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
 
     useEffect(() => {
-        if (user) {
-            idRef.current.value = user?.id;
-            nameRef.current.value = user?.name;
-            lastNameRef.current.value = user?.lastName;
-            emailRef.current.value = user?.email;
-        }
+        let defaultValues = {};
+        defaultValues.id = user?.id;
+        defaultValues.name = user?.name;
+        defaultValues.lastName = user?.lastName;
+        defaultValues.email = user?.email;
+        reset({ ...defaultValues });
     }, [user]);
 
-    async function handleSave() {
+    async function handleSave(data) {
         const id = user.id;
         const body = {
-            name: nameRef.current.value,
-            lastName: lastNameRef.current.value,
-            email: emailRef.current.value
+            name: data.name,
+            lastName: data.lastName,
+            email: data.email
         };
 
         await updateUser(body, id);
@@ -41,56 +45,68 @@ export default function Form({ user }) {
             marginTop: 0
         },
         type: 'blue',
-        onClick: () => {
-            handleSave();
-        }
+        onClick: () => {}
     };
-
-    function handleSubmit(e) {
-        e.preventDefault();
-    }
 
     return (
         <div className={styles.containerForm}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(handleSave)}>
                 <div>
                     <label className={styles.labelId}>ID</label>
                     <input
                         type="text"
                         className={styles.inputId}
-                        ref={idRef}
+                        {...register('id')}
                         disabled
                     />
                 </div>
-                <div>
-                    <label className={styles.name}>
-                        Nome
-                        <input
-                            type="text"
-                            className={styles.input}
-                            ref={nameRef}
-                        />
-                    </label>
+                <div className={styles.boxField}>
+                    <label>Nome</label>
+                    <input
+                        type="text"
+                        {...register('name', { required: true })}
+                        className={errors?.name ? styles['error'] : ''}
+                    />
+                    {errors.name && (
+                        <span className={styles.message_error}>
+                            Insira o nome
+                        </span>
+                    )}
                 </div>
-                <div>
-                    <label className={styles.lastName}>
-                        Sobrenome
-                        <input
-                            type="text"
-                            className={styles.input}
-                            ref={lastNameRef}
-                        />
-                    </label>
+                <div className={styles.boxField}>
+                    <label>Sobrenome</label>
+                    <input
+                        type="text"
+                        {...register('lastName', { required: true })}
+                        className={errors?.name ? styles['error'] : ''}
+                    />
+                    {errors.lastName && (
+                        <span className={styles.message_error}>
+                            Insira o sobrenome
+                        </span>
+                    )}
                 </div>
-                <div>
-                    <label className={styles.email}>
-                        Email
-                        <input
-                            type="email"
-                            className={styles.input}
-                            ref={emailRef}
-                        />
-                    </label>
+                <div className={styles.boxField}>
+                    <label>Email</label>
+                    <input
+                        className={errors?.email ? styles['error'] : ''}
+                        type="email"
+                        {...register('email', {
+                            required: {
+                                value: true,
+                                message: 'Insira um e-mail'
+                            },
+                            pattern: {
+                                value: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
+                                message: 'Insira um e-mail válido'
+                            }
+                        })}
+                    />
+                    {errors.email && (
+                        <span className={styles.message_error}>
+                            {errors.email.message}
+                        </span>
+                    )}
                 </div>
                 <Button config={configEditButton} />
             </form>
