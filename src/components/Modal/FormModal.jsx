@@ -10,6 +10,7 @@ import FormCreateCategory from "./FormCreateCategory";
 import FormCreateExpenseUser from "./FormCreateExpenseUser";
 import FormEditExpenseUser from "./FormEditExpenseUser";
 import DeleteExpense from "./DeleteExpense";
+import FormCreateExpenseByCategory from "./FormCreateExpenseByCategory";
 
 Modal.setAppElement("#root");
 
@@ -49,6 +50,9 @@ export default function FormModal() {
         {layout.modal.action === "EditExpenseUser" && <FormEditExpenseUser />}
         {layout.modal.action === "DeleteExpense" && (
           <DeleteExpense categoryID={layout.modal.categoryID} />
+        )}
+        {layout.modal.action === "CreateExpenseByCategory" && (
+          <FormCreateExpenseByCategory />
         )}
       </Modal>
     </div>

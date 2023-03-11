@@ -138,10 +138,10 @@ export default function UserProfileCategory() {
       backgroundColor: "#2196F3",
     },
     onClick: () => {
-      // setLayout({
-      //     ...layout,
-      //     modal: { show: true, action: 'CreateUser' }
-      // });
+      setLayout({
+          ...layout,
+          modal: { show: true, action: 'CreateExpenseByCategory', user: currentUser}
+      });
     },
   };
 
