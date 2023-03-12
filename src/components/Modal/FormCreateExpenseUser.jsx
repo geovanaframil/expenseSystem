@@ -12,7 +12,7 @@ export default function FormCreateExpenseUser() {
     const { layout, setLayout } = useContext(layoutContext);
     const [categories, setCategories] = useState([]);
     const { fetchUser } = useContext(userContext);
-    console.log(categories);
+  
     const {
         register,
         handleSubmit,
@@ -27,8 +27,6 @@ export default function FormCreateExpenseUser() {
         const data = await getAllCategories();
         setCategories(data);
     }
-
-    console.log(layout);
 
     useEffect(() => {
         getCategories();

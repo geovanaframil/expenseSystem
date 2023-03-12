@@ -1,109 +1,136 @@
-import { useContext, useRef, useEffect, useState } from "react";
-import styles from "./Modal.module.css";
-import Button from "../Button";
-import { layoutContext } from "../../context/layoutContext";
-import getAllCategories from "../../Services/categories.service";
-import addNewExpense from "../../Services/addNewExpense.service";
-import { userContext } from "../../context/userContext";
+import { useContext, useRef, useEffect, useState } from 'react';
+import styles from './Modal.module.css';
+import Button from '../Button';
+import { layoutContext } from '../../context/layoutContext';
+import getAllCategories from '../../Services/categories.service';
+import addNewExpense from '../../Services/addNewExpense.service';
+import { userContext } from '../../context/userContext';
+import { useForm } from 'react-hook-form';
+import { maskMoney } from '../../utils/maskMoney';
+import { priceFormattedToNumber } from '../../utils/formatPrice';
 
 export default function FormCreateExpenseByCategory() {
-  const nameRef = useRef(null);
-  const categoryRef = useRef(null);
-  const amountRef = useRef(null);
-  const nameUserRef = useRef(null);
-  const { layout, setLayout } = useContext(layoutContext);
-  const [categories, setCategories] = useState([]);
-  const { fetchUser } = useContext(userContext);
+    const { layout, setLayout } = useContext(layoutContext);
+    const { fetchUser } = useContext(userContext);
 
-  async function getCategories() {
-    const data = await getAllCategories();
-    setCategories(data);
-  }
+    const currentCategory = layout.modal.user._categories.filter(
+        category => category.name === layout.modal.categoryName
+    );
 
-  useEffect(() => {
-    getCategories();
-    // if (layout) {
-    //   nameUserRef.current.value = `${layout.modal.user.name} ${layout.modal.user.lastName}`;
-    // }
-  }, []);
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useForm();
 
-  function closeModal() {
-    setLayout({ ...layout, modal: { open: false } });
-  }
+    useEffect(() => {
+        let defaultValues = {};
+        defaultValues.categoryName = currentCategory[0].name;
+        defaultValues.userName = `${layout?.modal?.user?.name} ${layout?.modal?.user?.lastName}`;
+        reset({ ...defaultValues });
+    }, [layout]);
 
-  async function handleSave() {
-    const body = {
-      name: nameRef.current.value,
-      categoryID: categoryRef.current.value,
-      userID: layout.modal.user.id,
-      amount: Number(amountRef.current.value),
-      status: "PENDENTE",
+    function closeModal() {
+        setLayout({ ...layout, modal: { open: false } });
+    }
+
+    async function handleSave(data) {
+        const body = {
+            name: data.name,
+            categoryID: currentCategory[0].id,
+            userID: layout.modal.user.id,
+            amount: priceFormattedToNumber(data.amount),
+            status: 'PENDENTE'
+        };
+
+        await addNewExpense(body);
+        fetchUser(layout.modal.user.id);
+        closeModal();
+    }
+
+    const configSaveButton = {
+        name: 'SALVAR',
+        style: {
+            color: 'white',
+            backgroundColor: '#2196F3'
+        },
+        type: 'blue',
+        onClick: () => {
+            //   handleSave();
+        }
     };
 
-    // await addNewExpense(body);
-    // fetchUser(layout.modal.user.id);
-  }
+    const configCancelButton = {
+        name: 'CANCELAR',
+        style: {
+            color: '#D32F2F',
+            backgroundColor: 'transparent',
+            border: '1px solid #D32F2F'
+        },
+        type: 'red',
+        onClick: () => {
+            closeModal();
+        }
+    };
 
-  const configSaveButton = {
-    name: "SALVAR",
-    style: {
-      color: "white",
-      backgroundColor: "#2196F3",
-    },
-    type: "blue",
-    onClick: () => {
-    //   handleSave();
-      closeModal();
-    },
-  };
-
-  const configCancelButton = {
-    name: "CANCELAR",
-    style: {
-      color: "#D32F2F",
-      backgroundColor: "transparent",
-      border: "1px solid #D32F2F",
-    },
-    type: "red",
-    onClick: () => {
-      closeModal();
-    },
-  };
-
-  return (
-    <div>
-      <form>
-        <div className={styles.titleModal}>
-          <h2>ADICIONAR DESPESA</h2>
+    return (
+        <div>
+            <form onSubmit={handleSubmit(handleSave)}>
+                <div className={styles.titleModal}>
+                    <h2>ADICIONAR DESPESA</h2>
+                </div>
+                <div className={styles.fields}>
+                    <div className={styles.boxField}>
+                        <label htmlFor="name">Nome</label>
+                        <input
+                            className={errors?.name ? styles['error'] : ''}
+                            id="name"
+                            type="text"
+                            {...register('name', { required: true })}
+                        />
+                        {errors.name && (
+                            <span className={styles.message_error}>
+                                Insira o nome da despesa
+                            </span>
+                        )}
+                    </div>
+                    <div className={styles.boxField}>
+                        <label>Categoria</label>
+                        <input
+                            type="text"
+                            {...register('categoryName')}
+                            disabled
+                        />
+                    </div>
+                    <div className={styles.boxField}>
+                        <label>Usuario</label>
+                        <input type="text" {...register('userName')} disabled />
+                    </div>
+                    <div className={styles.boxField}>
+                        <label>Valor</label>
+                        <input
+                            className={errors?.amount ? styles['error'] : ''}
+                            type="text"
+                            {...register('amount', {
+                                required: true,
+                                validate: (value, formValues) =>
+                                    Number(value.replace(/\D/g, '')) >= 1,
+                                onChange: e => maskMoney(e)
+                            })}
+                        />
+                        {errors.amount && (
+                            <span className={styles.message_error}>
+                                Insira o valor
+                            </span>
+                        )}
+                    </div>
+                </div>
+                <div className={styles.buttons}>
+                    <Button config={configSaveButton} />
+                    <Button config={configCancelButton} />
+                </div>
+            </form>
         </div>
-        <div className={styles.fields}>
-          <div>
-            <label>Nome</label>
-            <input type="text" ref={nameRef} />
-          </div>
-          <div className={styles.categoryId}>
-            <label>Categoria</label>
-                <input type='text' />
-          </div>
-          <div className={styles.inputUser}>
-            <label className={styles.labelUser}>Usuário</label>
-            <input
-              className={styles.inputUserName}
-              type="text"
-              ref={nameUserRef}
-              disabled
-            />
-          </div>
-          <div className={styles.value}>
-            <label>Valor</label>
-            <input type="text" ref={amountRef} />
-          </div>
-        </div>
-        <div className={styles.buttons}>
-          <Button config={configSaveButton} />
-          <Button config={configCancelButton} />
-        </div>
-      </form>
-    </div>
-  );
+    );
 }
