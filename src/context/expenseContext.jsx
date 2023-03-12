@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import expensesAllUsers from "../Services/expensesAllUsers.service";
+import { formatPrice } from "../utils/formatPrice";
 
 const initialState = [];
 
@@ -16,7 +17,7 @@ export function ExpenseProvider({ children }) {
       return {
         id: usuario.userID,
         email: usuario["_user"].email,
-        amount: usuario.amount,
+        amount: formatPrice(usuario.amount),
         status: usuario.status,
         show: true
       };

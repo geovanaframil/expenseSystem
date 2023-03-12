@@ -24,8 +24,8 @@ export default function UserProfile() {
         id: category.id,
         nameCategory: category.name,
         show: true,
-        PAGO: getTotalExpenseByStatus(category._expenses, "PAGO"),
-        PENDENTE: getTotalExpenseByStatus(category._expenses, "PENDENTE"),
+        PAGO: formatPrice(getTotalExpenseByStatus(category._expenses, "PAGO")) ,
+        PENDENTE: formatPrice(getTotalExpenseByStatus(category._expenses, "PENDENTE")) ,
       };
     });
     return categoryMapped;
@@ -88,16 +88,6 @@ export default function UserProfile() {
     },
   };
 
-  const expensesCategoriesInRealMoney = userExpenses.map((category) => {
-    return {
-      id: category.id,
-      nameCategory: category.nameCategory,
-      PAGO: formatPrice(category.PAGO),
-      PENDENTE: formatPrice(category.PENDENTE),
-      show: category.show,
-    };
-  });
-
   return (
     <div className={`${styles.containerUser}`}>
       <div className={styles.titleData}>
@@ -134,7 +124,7 @@ export default function UserProfile() {
           onOrder={(data) => handlerSearch(data)}
         />
       </div>
-      <Table configs={configTable} data={expensesCategoriesInRealMoney} />
+      <Table configs={configTable} data={userExpenses} />
 
       <div className={styles.wrapperButton}>
         <Button config={configButton} />

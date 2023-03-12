@@ -1,8 +1,7 @@
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice, priceFormattedToNumber } from '../../utils/formatPrice';
 import styles from './Summary.module.css';
 
 function Summary({ data, page }) {
-    let totalExpenses = 0;
     let totalNoPaid = 0;
     let totalPaid = 0;
 
@@ -14,7 +13,7 @@ function Summary({ data, page }) {
         });
 
         totalPaid = usersPaid.reduce((acc, atual) => {
-            return acc + atual.amount;
+            return acc + priceFormattedToNumber(atual.amount);
         }, 0);
 
         let usersNoPaid = dataShowed.filter(expense => {
@@ -22,17 +21,17 @@ function Summary({ data, page }) {
         });
 
         totalNoPaid = usersNoPaid.reduce((acc, atual) => {
-            return acc + atual.amount;
+            return acc + priceFormattedToNumber(atual.amount);
         }, 0);
     }
 
     if (page === 'users' || page === 'userProfile') {
         totalNoPaid = dataShowed.reduce((acc, atual) => {
-            return acc + atual.PENDENTE;
+            return acc + priceFormattedToNumber(atual.PENDENTE);
         }, 0);
 
         totalPaid = dataShowed.reduce((acc, atual) => {
-            return acc + atual.PAGO;
+            return acc + priceFormattedToNumber(atual.PAGO);
         }, 0);
     }
 

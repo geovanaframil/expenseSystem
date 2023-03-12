@@ -68,16 +68,6 @@ export default function Users() {
         }
     };
 
-    const usersFormatedInRealMoney = users.map(user => {
-        return {
-            id: user.id,
-            email: user.email,
-            PENDENTE: formatPrice(user.PENDENTE),
-            PAGO: formatPrice(user.PAGO),
-            show: user.show
-        };
-    });
-
     return (
         <div className={`${styles.containerUsers} container`}>
             <Summary data={users} page="users" />
@@ -110,7 +100,7 @@ export default function Users() {
                     onOrder={data => handlerSearch(data)}
                 />
             </div>
-            <Table configs={configTable} data={usersFormatedInRealMoney} />
+            <Table configs={configTable} data={users} />
             <div className={styles.wrapperButton}>
                 <Button config={configButton} />
             </div>

@@ -8,6 +8,7 @@ import Table from "../../components/Table";
 import { userContext } from "../../context/userContext";
 import styles from "./UserProfileCategory.module.css";
 import { layoutContext } from "../../context/layoutContext";
+import { formatPrice } from "../../utils/formatPrice";
 
 export default function UserProfileCategory() {
   const { layout, setLayout } = useContext(layoutContext);
@@ -28,7 +29,7 @@ export default function UserProfileCategory() {
           name: expense.name,
           category: expense["_category"].name,
           id: expense.id,
-          amount: expense.amount,
+          amount: formatPrice(expense.amount) ,
           status: expense.status,
           show: true,
         };

@@ -6,7 +6,6 @@ import Search from '../../components/Filters/Search';
 import FilterBy from '../../components/Filters/FilterBy';
 import Summary from '../../components/Summary';
 import Table from '../../components/Table';
-import { formatPrice } from '../../utils/formatPrice';
 import styles from './Expenses.module.css';
 import { layoutContext } from '../../context/layoutContext';
 import { expenseContext } from '../../context/expenseContext';
@@ -73,16 +72,6 @@ export default function Expenses() {
         }
     };
 
-    const expensesFormatedInRealMoney = expenses.map(expense => {
-        return {
-            id: expense.id,
-            email: expense.email,
-            amount: formatPrice(expense.amount),
-            status: expense.status,
-            show: expense.show
-        };
-    });
-
     return (
         <div className={`${styles.containerExpenses} container`}>
             <Summary data={expenses} page="expenses" />
@@ -134,7 +123,7 @@ export default function Expenses() {
                     onSorted={data => handlerSearch(data)}
                 />
             </div>
-            <Table configs={config} data={expensesFormatedInRealMoney} />
+            <Table configs={config} data={expenses} />
             <div className={styles.wrapperButton}>
                 <Button config={configButton} />
             </div>

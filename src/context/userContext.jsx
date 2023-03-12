@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import { getUser, getAllUsers } from '../Services/allUsers.service';
+import { formatPrice } from '../utils/formatPrice';
 
 const initialState = [];
 
@@ -32,8 +33,8 @@ export function UserProvider({ children }) {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                PAGO: getTotalExpenseByStatus(_expenses, 'PAGO'),
-                PENDENTE: getTotalExpenseByStatus(_expenses, 'PENDENTE'),
+                PAGO: formatPrice(getTotalExpenseByStatus(_expenses, 'PAGO')) ,
+                PENDENTE: formatPrice(getTotalExpenseByStatus(_expenses, 'PENDENTE')),
                 show: true
             };
         });
