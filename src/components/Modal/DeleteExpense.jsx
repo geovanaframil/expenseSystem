@@ -7,7 +7,6 @@ import { userContext } from "../../context/userContext";
 
 export default function DeleteExpense(props) {
   const { layout, setLayout } = useContext(layoutContext);
-  console.log(layout)
   const { fetchUser } = useContext(userContext);
 
   async function confirmDeletion() {
@@ -49,7 +48,7 @@ export default function DeleteExpense(props) {
     <div>
       <form>
         <div className={styles.titleModalDelete}>
-          <h2>DELETAR CATEGORIA</h2>
+          <h2>DELETAR DESPESA</h2>
         </div>
         <div className={styles.msgConfirmingDeletion}>
           <p className={styles.msg}>
