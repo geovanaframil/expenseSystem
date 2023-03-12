@@ -10,6 +10,7 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';
+import { priceFormattedToNumber } from '../../utils/formatPrice';
 
 export default function FormCreateExpense() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -54,7 +55,7 @@ export default function FormCreateExpense() {
         const body = {
             ...data,
             status: 'PENDENTE',
-            amount: Number(data.amount.replace(/\D/g, '')) / 100
+            amount: priceFormattedToNumber(data.amount)
         };
 
         await addNewExpense(body);

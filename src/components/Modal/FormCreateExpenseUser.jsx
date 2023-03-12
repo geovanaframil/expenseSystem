@@ -7,6 +7,7 @@ import addNewExpense from '../../Services/addNewExpense.service';
 import { userContext } from '../../context/userContext';
 import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';
+import { priceFormattedToNumber } from '../../utils/formatPrice';
 
 export default function FormCreateExpenseUser() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -41,7 +42,7 @@ export default function FormCreateExpenseUser() {
         const body = {
             ...data,
             userID: id,
-            amount: Number(data.amount.replace(/\D/g, '')) / 100,
+            amount: priceFormattedToNumber(data.amount),
             status: 'PENDENTE'
         };
 
