@@ -16,7 +16,7 @@ export default function UserProfileCategory() {
     const { currentUser, fetchUser } = useContext(userContext);
     const [expenses, setExpenses] = useState([]);
     const [expensesInitial, setExpensesInitial] = useState([]);
-   
+
     function userCategoriesMap() {
         const categoryFilter = currentUser._categories.filter(category => {
             return category.name === categoriaId;
@@ -84,11 +84,8 @@ export default function UserProfileCategory() {
                             setLayout({
                                 ...layout,
                                 modal: {
-                                    show: true,
-                                    action: 'EditExpenseUser',
-                                    categoryID: item.id,
-                                    name: item.name,
-                                    userID: userId
+                                    ...item,
+                                    action: 'EditExpenseUser'
                                 }
                             });
                         }}
