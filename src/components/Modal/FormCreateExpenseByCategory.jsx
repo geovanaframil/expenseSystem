@@ -2,7 +2,7 @@ import { useContext, useEffect} from 'react';
 import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
-import addNewExpense from '../../Services/addNewExpense.service';
+import {addNewExpense} from '../../Services/expenses.service';
 import { userContext } from '../../context/userContext';
 import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';

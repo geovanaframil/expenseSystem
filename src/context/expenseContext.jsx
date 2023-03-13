@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
-import expensesAllUsers from '../Services/expensesAllUsers.service';
-import findExpense from '../Services/findExpense.service';
+import {expensesAllUsers} from '../Services/expenses.service';
+import {findExpense} from '../Services/expenses.service';
 import { formatPrice } from '../utils/formatPrice';
 
 const initialState = [];

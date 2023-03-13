@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styles from "./Modal.module.css";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
-import fetchDeleteExpense from "../../Services/deleteExpense.service";
+import {fetchDeleteExpense} from "../../Services/expenses.service";
 import { userContext } from "../../context/userContext";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';

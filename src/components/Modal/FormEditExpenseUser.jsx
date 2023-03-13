@@ -3,7 +3,7 @@ import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
 import { userContext } from '../../context/userContext';
-import fetchEditExpense from '../../Services/editExpense.service';
+import {fetchEditExpense} from '../../Services/expenses.service';
 import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';
 import { priceFormattedToNumber } from '../../utils/formatPrice';

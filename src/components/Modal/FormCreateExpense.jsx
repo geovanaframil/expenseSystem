@@ -4,7 +4,7 @@ import { getAllCategories } from "../../Services/categories.service";
 import { getAllUsers } from "../../Services/allUsers.service";
 import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
-import addNewExpense from "../../Services/addNewExpense.service";
+import {addNewExpense} from "../../Services/expenses.service";
 import { expenseContext } from "../../context/expenseContext";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
