@@ -32,9 +32,11 @@
 .green {
     color: var(--green-300);
 }
-td[attr-key='email'],
-td[attr-key='nameCategory'] {
+td[attr-key='email']:hover,
+td[attr-key='nameCategory']:hover {
     cursor: pointer;
+    color: var(--blue-100);
+    text-decoration: underline;
 }
 td[attr-value='PAGO'] {
     color: var(--green-300);
