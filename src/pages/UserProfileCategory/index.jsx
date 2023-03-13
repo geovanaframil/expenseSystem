@@ -47,7 +47,7 @@ export default function UserProfileCategory() {
 
     useEffect(() => {
         const currentExpenses = userCategoriesMap();
-        const currentExpensesReverse = currentExpenses.reverse()
+        const currentExpensesReverse = currentExpenses.reverse();
         setExpenses(currentExpensesReverse);
         setExpensesInitial(currentExpensesReverse);
     }, [currentUser]);
@@ -65,6 +65,7 @@ export default function UserProfileCategory() {
             label: 'ID',
             key: 'id'
         },
+        { label: 'Nome', key: 'name' },
         {
             label: 'Valor',
             key: 'amount',
@@ -194,7 +195,7 @@ export default function UserProfileCategory() {
                     onSorted={data => handlerSearch(data)}
                 />
             </div>
-            <Table table={'category'} configs={configTable} data={expenses} />
+            <Table configs={configTable} data={expenses} />
             <div className={styles.wrapperButton}>
                 <Button config={configButtonAddExpense} />
             </div>
