@@ -44,12 +44,13 @@ export function UserProvider({ children }) {
 
     async function fetchUsers() {
         let response = await getAllUsers();
+        let responseReverse = response.reverse()
 
-        const usersReduce = usersMap(response);
+        const usersReduce = usersMap(responseReverse);
 
         setUsers(usersReduce);
         setUsersInitial(usersReduce);
-        setUsersAllData(response);
+        setUsersAllData(responseReverse);
     }
 
     async function fetchUser(id) {

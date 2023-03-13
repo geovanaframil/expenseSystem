@@ -15,7 +15,7 @@ export function ExpenseProvider({ children }) {
     async function fetchExpenses() {
         let response = await expensesAllUsers();
 
-        const expensesReduce = response.map(usuario => {
+        const expensesReduce = response.reverse().map(usuario => {
             return {
                 id: usuario.userID,
                 email: usuario['_user'].email,
