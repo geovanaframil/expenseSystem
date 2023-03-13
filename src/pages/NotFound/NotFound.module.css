@@ -1,0 +1,15 @@
+.boxContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-direction: column;
+    padding-top: 100px;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 26px;
+}
+
+.boxContainer h1 {
+    font-size: 100px;
+}
