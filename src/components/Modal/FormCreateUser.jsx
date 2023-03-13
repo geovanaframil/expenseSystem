@@ -5,6 +5,8 @@ import { layoutContext } from '../../context/layoutContext';
 import addNewUser from '../../Services/addNewUser.service';
 import { userContext } from '../../context/userContext';
 import { useForm } from 'react-hook-form';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function FormCreateUser() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -16,6 +18,14 @@ export default function FormCreateUser() {
         formState: { errors }
     } = useForm();
 
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
+
     function closeModal() {
         setLayout({ ...layout, modal: { open: false } });
     }
@@ -23,6 +33,8 @@ export default function FormCreateUser() {
     async function handleSave(data) {
         await addNewUser(data);
         fetchUsers();
+
+        notyf.success('Usuário criado com sucesso!');
         closeModal();
     }
 

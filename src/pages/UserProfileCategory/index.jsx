@@ -47,8 +47,9 @@ export default function UserProfileCategory() {
 
     useEffect(() => {
         const currentExpenses = userCategoriesMap();
-        setExpenses(currentExpenses);
-        setExpensesInitial(currentExpenses);
+        const currentExpensesReverse = currentExpenses.reverse()
+        setExpenses(currentExpensesReverse);
+        setExpensesInitial(currentExpensesReverse);
     }, [currentUser]);
 
     function handlerSearch(data) {

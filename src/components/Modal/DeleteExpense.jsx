@@ -4,14 +4,27 @@ import Button from "../Button";
 import { layoutContext } from "../../context/layoutContext";
 import fetchDeleteExpense from "../../Services/deleteExpense.service";
 import { userContext } from "../../context/userContext";
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function DeleteExpense(props) {
   const { layout, setLayout } = useContext(layoutContext);
   const { fetchUser } = useContext(userContext);
 
+  const notyf = new Notyf({
+    ripple: false,
+    position: {
+        x: 'right',
+        y: 'top'
+    }
+});
+
   async function confirmDeletion() {
     await fetchDeleteExpense(props.categoryID);
+
     fetchUser(layout.modal.userID);
+
+    notyf.success('Despesa excluída com sucesso!');
   }
 
   function closeModal() {

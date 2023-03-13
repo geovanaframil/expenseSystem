@@ -8,6 +8,8 @@ import { userContext } from '../../context/userContext';
 import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';
 import { priceFormattedToNumber } from '../../utils/formatPrice';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function FormCreateExpenseUser() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -23,6 +25,15 @@ export default function FormCreateExpenseUser() {
             userName: `${layout?.modal?.user?.name} ${layout?.modal?.user?.lastName}`
         }
     });
+
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
+
 
     async function getCategories() {
         const data = await getAllCategories();
@@ -48,6 +59,8 @@ export default function FormCreateExpenseUser() {
 
         await addNewExpense(body);
         fetchUser(id);
+
+        notyf.success('Despesa criada com sucesso!');
         closeModal();
     }
 

@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect, useState } from 'react';
+import { useContext,useEffect} from 'react';
 import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';
 import { priceFormattedToNumber } from '../../utils/formatPrice';
 import { expenseContext } from '../../context/expenseContext';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function FormEditExpenseUser() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -25,6 +27,14 @@ export default function FormEditExpenseUser() {
             category: layout.modal.category,
             amount: layout.modal.amount,
             status: layout.modal.status
+        }
+    });
+
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
         }
     });
 
@@ -48,6 +58,8 @@ export default function FormEditExpenseUser() {
         };
         await fetchEditExpense(body, data.expenseID);
         fetchUser(userID);
+
+        notyf.success('Despesa editada com sucesso!');
         closeModal();
     }
 

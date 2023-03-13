@@ -1,9 +1,11 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button';
 import { userContext } from '../../../context/userContext';
 import updateUser from '../../../Services/updateUser.service';
 import styles from './Form.module.css';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function Form({ user }) {
     const { fetchUser } = useContext(userContext);
@@ -14,6 +16,14 @@ export default function Form({ user }) {
         handleSubmit,
         formState: { errors }
     } = useForm();
+
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
 
     useEffect(() => {
         let defaultValues = {};
@@ -35,6 +45,7 @@ export default function Form({ user }) {
         await updateUser(body, id);
 
         fetchUser(id);
+        notyf.success('Usuário atualizado com sucesso!');
     }
 
     const configEditButton = {

@@ -5,6 +5,8 @@ import { layoutContext } from '../../context/layoutContext';
 import addNewCategory from '../../Services/addNewCategory.service';
 import { categoryContext } from '../../context/categoryContext';
 import { useForm } from 'react-hook-form';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function FormCreateCategory() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -16,6 +18,14 @@ export default function FormCreateCategory() {
         formState: { errors }
     } = useForm();
 
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
+
     function closeModal() {
         setLayout({ ...layout, modal: { open: false } });
     }
@@ -23,6 +33,8 @@ export default function FormCreateCategory() {
     async function handleSave(data) {
         await addNewCategory(data);
         fetchCategories();
+
+        notyf.success('Categoria criada com sucesso!');
         closeModal();
     }
 

@@ -1,13 +1,14 @@
-import { useContext, useRef, useEffect, useState } from 'react';
+import { useContext, useEffect} from 'react';
 import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
-import getAllCategories from '../../Services/categories.service';
 import addNewExpense from '../../Services/addNewExpense.service';
 import { userContext } from '../../context/userContext';
 import { useForm } from 'react-hook-form';
 import { maskMoney } from '../../utils/maskMoney';
 import { priceFormattedToNumber } from '../../utils/formatPrice';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function FormCreateExpenseByCategory() {
     const { layout, setLayout } = useContext(layoutContext);
@@ -23,6 +24,14 @@ export default function FormCreateExpenseByCategory() {
         reset,
         formState: { errors }
     } = useForm();
+
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
 
     useEffect(() => {
         let defaultValues = {};
@@ -46,6 +55,8 @@ export default function FormCreateExpenseByCategory() {
 
         await addNewExpense(body);
         fetchUser(layout.modal.user.id);
+
+        notyf.success('Despesa criada com sucesso!');
         closeModal();
     }
 
@@ -57,7 +68,6 @@ export default function FormCreateExpenseByCategory() {
         },
         type: 'blue',
         onClick: () => {
-            //   handleSave();
         }
     };
 

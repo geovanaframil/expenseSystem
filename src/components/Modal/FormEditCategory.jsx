@@ -5,6 +5,8 @@ import { layoutContext } from '../../context/layoutContext';
 import fetchEditCategory from '../../Services/editCategories.service';
 import { categoryContext } from '../../context/categoryContext';
 import { useForm } from 'react-hook-form';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 export default function EditCategory(props) {
     const { layout, setLayout } = useContext(layoutContext);
@@ -20,6 +22,14 @@ export default function EditCategory(props) {
         }
     });
 
+    const notyf = new Notyf({
+        ripple: false,
+        position: {
+            x: 'right',
+            y: 'top'
+        }
+    });
+
     function closeModal() {
         setLayout({ ...layout, modal: { open: false } });
     }
@@ -27,6 +37,8 @@ export default function EditCategory(props) {
     async function handleSave(data) {
         await fetchEditCategory(data, props.categoryID);
         fetchCategories();
+
+        notyf.success('Categoria editada com sucesso!');
         closeModal();
     }
 
