@@ -1,21 +1,39 @@
+import { priceFormattedToNumber } from '../../utils/formatPrice';
 import styles from './Filters.module.css';
 
 export default function OrderBy({ orderFields, items, onOrder }) {
     function handleOrderByChange(e) {
         const selected = e.target.value;
+        let itemsOrder = [];
 
         if (selected === '') {
             onOrder(null);
             return;
         }
 
-        const itemsOrder = [...items].sort((a, b) => {
-            return a[selected] < b[selected]
-                ? -1
-                : a[selected] > b[selected]
-                ? 1
-                : 0;
-        });
+        if (
+            selected === 'PAGO' ||
+            selected === 'PENDENTE' ||
+            selected === 'amount'
+        ) {
+            itemsOrder = [...items].sort((a, b) => {
+                return priceFormattedToNumber(a[selected]) <
+                    priceFormattedToNumber(b[selected])
+                    ? -1
+                    : priceFormattedToNumber(a[selected]) >
+                      priceFormattedToNumber(b[selected])
+                    ? 1
+                    : 0;
+            });
+        } else {
+            itemsOrder = [...items].sort((a, b) => {
+                return a[selected] < b[selected]
+                    ? -1
+                    : a[selected] > b[selected]
+                    ? 1
+                    : 0;
+            });
+        }
 
         onOrder(itemsOrder);
     }
