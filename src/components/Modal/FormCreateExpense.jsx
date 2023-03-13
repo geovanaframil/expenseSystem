@@ -124,7 +124,7 @@ export default function FormCreateExpense() {
                                         key={category.id}
                                         value={category.id}
                                     >
-                                        {category.id}
+                                        {category.name}
                                     </option>
                                 );
                             })}
@@ -143,9 +143,10 @@ export default function FormCreateExpense() {
                         >
                             <option></option>
                             {users.map(user => {
+                                console.log(user);
                                 return (
                                     <option key={user.id} value={user.id}>
-                                        {user.id}
+                                        {`${user.name} ${user.lastName}`}
                                     </option>
                                 );
                             })}
