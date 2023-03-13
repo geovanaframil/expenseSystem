@@ -2,7 +2,7 @@ import { useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../../components/Button';
 import { userContext } from '../../../context/userContext';
-import updateUser from '../../../Services/updateUser.service';
+import {updateUser} from '../../../Services/users.service';
 import styles from './Form.module.css';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';

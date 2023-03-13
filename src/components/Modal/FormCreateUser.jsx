@@ -2,7 +2,7 @@ import { useContext} from 'react';
 import styles from './Modal.module.css';
 import Button from '../Button';
 import { layoutContext } from '../../context/layoutContext';
-import addNewUser from '../../Services/addNewUser.service';
+import {addNewUser} from '../../Services/users.service';
 import { userContext } from '../../context/userContext';
 import { useForm } from 'react-hook-form';
 import { Notyf } from 'notyf';

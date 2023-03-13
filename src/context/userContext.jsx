@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { getUser, getAllUsers } from '../Services/allUsers.service';
+import { getUser, getAllUsers } from '../Services/users.service';
 import { formatPrice } from '../utils/formatPrice';
 
 const initialState = [];
